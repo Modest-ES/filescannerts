@@ -81,7 +81,7 @@ func main() {
 		}
 	}
 
-	p("Lines length = ", len(urldata))
+	p("Amount of lines in the URLs file = ", len(urldata))
 
 	for _, line := range urldata {
 		if isValidURL("https://"+line) == true {
@@ -95,7 +95,14 @@ func main() {
 			if err != nil {
 				log.Fatal(err)
 			}
-			createHTMLFile(strings.ReplaceAll(line, ".", ""), *destinationPtr, string(body))
+
+			index := strings.IndexRune(line, '.')
+
+			if index != -1 {
+				line = line[:index]
+			}
+
+			createHTMLFile(line, *destinationPtr, string(body))
 		} else {
 			p("ER ", line)
 		}
