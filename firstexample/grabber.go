@@ -51,7 +51,7 @@ func main() {
 	if *srcPtr == "nodata" {
 		log.Fatal("Error: Source flag value is not entered")
 	}
-	if *destinationPtr == "nodata" {
+	if *destinationPtr == "/home/artem/Documents/rbs-prac/firstexample/defaultdir" {
 		p("Warning: Destination flag value is not entered. The defaultdir directory is used for storing the results")
 	}
 
