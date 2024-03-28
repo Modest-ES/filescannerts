@@ -91,7 +91,7 @@
   <meta name="current-catalog-service-hash" content="40dc28bd654b20f337468a532ff456ed5863889cfbb4e982b793597321d48d3f">
 
 
-  <meta name="request-id" content="B3CC:3307DC:952EDED:96BA8D6:66050B59" data-pjax-transient="true"/><meta name="html-safe-nonce" content="e2e061368d4767b41f370584d02e7004792e5e8dc73cedfc6e5b1ae4f973f62d" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJCM0NDOjMzMDdEQzo5NTJFREVEOjk2QkE4RDY6NjYwNTBCNTkiLCJ2aXNpdG9yX2lkIjoiMTc4NTk1MTE3NDA5MzI0NTI3MyIsInJlZ2lvbl9lZGdlIjoiZnJhIiwicmVnaW9uX3JlbmRlciI6ImZyYSJ9" data-pjax-transient="true"/><meta name="visitor-hmac" content="b004d202ab1598dc7fbca78ace116421ead00f69aa8923b35859f476e2fd390c" data-pjax-transient="true"/>
+  <meta name="request-id" content="ECCA:18BC1A:1FC30048:2013292A:660511DD" data-pjax-transient="true"/><meta name="html-safe-nonce" content="6609ba27a652c54d19ea0df1fe3a091420edb1cf5e5d942e0364a25e712406b9" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJFQ0NBOjE4QkMxQToxRkMzMDA0ODoyMDEzMjkyQTo2NjA1MTFERCIsInZpc2l0b3JfaWQiOiI3MDc5MzkzNzcxMDc0Njg3NDUzIiwicmVnaW9uX2VkZ2UiOiJmcmEiLCJyZWdpb25fcmVuZGVyIjoiZnJhIn0=" data-pjax-transient="true"/><meta name="visitor-hmac" content="90cd6d7f654f18787a17d8e217bfa9cb9e0d809c4558f0076b3f59f2e4fd106a" data-pjax-transient="true"/>
 
 
 
@@ -611,7 +611,7 @@
                 
 
 
-<qbsearch-input class="search-input" data-scope="" data-custom-scopes-path="/search/custom_scopes" data-delete-custom-scopes-csrf="Vop1M7fgK8R1aZm0BR1JxQtovzDyOZlAotQLMH6HYSp8QscQ2kXTS59Lqja9ziZkZxNXlih8w-zhQmzxc1ahng" data-max-custom-scopes="10" data-header-redesign-enabled="false" data-initial-value="" data-blackbird-suggestions-path="/search/suggestions" data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations" data-current-repository="" data-current-org="" data-current-owner="" data-logged-in="false" data-copilot-chat-enabled="false" data-blackbird-indexed-repo-csrf="<esi:include src=&quot;/_esi/rails_csrf_token_form_hidden?r=irYkJIJ42hhgmlHE70MVz2ZR9bkjfQVVUprqdENxbk7TGqXgx4H9KKJkL0kCi5mcM93hIuQOFo0oFR3z2sFJvihnwc3Q8RiqJP9F%2B7nJpM35blaFR7iIPuB%2BQx6E4dWeKpY3cXG3LLRcyc%2BGPitkiLHuMPZFDu4vSRz4cx02O66PYXXYbAOj4kys9JgyoEQrtluDl3nMEZN%2BwkoCPq%2FaOOWqKwCwYwdU7a%2FIzIhPzcJ0wOIO0%2BBLjjMj2tabX3fvl27zo58zifzh4JnSVhJH9Pi9MUaCBEmi0uxkG3gmJgyOSQ6cltzN6w%2F1S0OQ8pAL4nfmPpKTT2wPKSrkiNbP%2B6Hl4Y%2FMLo0CN8moNE%2FFy0eafA70d2jP%2F2wicKbJJkUiY18EbPX9bhjOfXcWluZd0Gb8%2B%2BHbzazqB1%2Fkalbhum032yv3urO8LwbaWl%2F3rzi3u085Lr8XrS8K1hQsRL3TGUjX1bMAtlRhv%2FnARqwzPj7cQ7M1HL4%3D--cGeQQ9koq4ryFErh--uXagQ1i%2FMmmJ%2BbbexyMTJQ%3D%3D&quot; />">
+<qbsearch-input class="search-input" data-scope="" data-custom-scopes-path="/search/custom_scopes" data-delete-custom-scopes-csrf="q8S86iiZTQMVIy-jeU20pRWKYR9SEsiZi7qqp2MZVqRGHzxfxhSRZr1JUO55pnfEWWHXin8_ARM_fiSWCXclwA" data-max-custom-scopes="10" data-header-redesign-enabled="false" data-initial-value="" data-blackbird-suggestions-path="/search/suggestions" data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations" data-current-repository="" data-current-org="" data-current-owner="" data-logged-in="false" data-copilot-chat-enabled="false" data-blackbird-indexed-repo-csrf="<esi:include src=&quot;/_esi/rails_csrf_token_form_hidden?r=pHuWoeQPHXlSrEYJs2U%2BT9xsvWKtL9XMamOSmhlhpN4mcAMZs5pxhCMkJI%2Busg%2FdNlnKu5seWx4jvecQ%2BAtwDw0j8UZQBUBkLlCyCijIIoCRfeTHAVrXdsNDonviiYo1fLNVFC4VFpXWF4govAEyn%2BCkDIINNU0iNZFht23%2B4ocNJ8fijkdRf9F2UEGrJhTgw9vkP8lo0kE2DCbObLIWu4RdK09L0NBIjLrzsMrC7%2BZH4ENd48SC6AoX21GPMifIcxzPogW0KiIAVcnfJFV9xlwI%2FRrUJs6723lUElacbif%2FVWr8I4HInVw9yhDWJaFr%2BQF%2F0PQPmVdGF9lR0Fx%2B8dvjj8Ef1ABl%2FaHvBk3k9BgWMAsl1Q4XVd9QKj1iyK29qEsf3Vj%2BcaoXv1N8wLnXW6WU39o9MRbGgGTiMYOSKUWVjloz2LJX0wwQojy7kkaX%2Fe5CmUZf%2B9Dbesl34faF2dBV%2BybxSy1bw4WDp8k%2B67Ol1RCm2ho%3D--OZq7zu8s4mU6IdzR--ApGrotaKRw%2F2UjPG4AOpjg%3D%3D&quot; />">
   <div
     class="search-input-container search-with-dialog position-relative d-flex flex-row flex-items-center mr-4 rounded"
     data-action="click:qbsearch-input#searchInputContainerClicked"
@@ -673,7 +673,7 @@
           ></div>
           <div class="QueryBuilder-InputWrapper">
             <div aria-hidden="true" class="QueryBuilder-Sizer" data-target="query-builder.sizer"></div>
-            <input id="query-builder-test" name="query-builder-test" value="" autocomplete="off" type="text" role="combobox" spellcheck="false" aria-expanded="false" aria-describedby="validation-fa419977-5b52-4f66-acf3-e4cd1ce739c1" data-target="query-builder.input" data-action="
+            <input id="query-builder-test" name="query-builder-test" value="" autocomplete="off" type="text" role="combobox" spellcheck="false" aria-expanded="false" aria-describedby="validation-ccd953b4-2f58-4fd2-930d-3c9dd4acef49" data-target="query-builder.input" data-action="
           input:query-builder#inputChange
           blur:query-builder#inputBlur
           keydown:query-builder#inputKeydown
@@ -904,7 +904,7 @@
                   id="query-builder-test-results"
                 ></ul>
         </div>
-      <div class="FormControl-inlineValidation" id="validation-fa419977-5b52-4f66-acf3-e4cd1ce739c1" hidden="hidden">
+      <div class="FormControl-inlineValidation" id="validation-ccd953b4-2f58-4fd2-930d-3c9dd4acef49" hidden="hidden">
         <span class="FormControl-inlineValidation--visual">
           <svg aria-hidden="true" height="12" viewBox="0 0 12 12" version="1.1" width="12" data-view-component="true" class="octicon octicon-alert-fill">
     <path d="M4.855.708c.5-.896 1.79-.896 2.29 0l4.675 8.351a1.312 1.312 0 0 1-1.146 1.954H1.33A1.313 1.313 0 0 1 .183 9.058ZM7 7V3H5v4Zm-1 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"></path>
@@ -945,7 +945,7 @@
   </div>
 </div>
       <scrollable-region data-labelled-by="feedback-dialog-title">
-        <div data-view-component="true" class="Overlay-body">        <!-- '"` --><!-- </textarea></xmp> --></option></form><form id="code-search-feedback-form" data-turbo="false" action="/search/feedback" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="k8TNxf5mesh+l6ZXGCoPUKQEwbwQ4u5iC/bh4mvbHOo+1ZMBJIdgsYVB/XOpOOzalYuFaRGJqLEXuiTF/GWN0A==" />
+        <div data-view-component="true" class="Overlay-body">        <!-- '"` --><!-- </textarea></xmp> --></option></form><form id="code-search-feedback-form" data-turbo="false" action="/search/feedback" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="uCkleoovEs4e+Hw1NE6+Tsk0Zhb6iaeXWcCwOiEG0uD4FGQLjGSKw2wA73/WGXZztri4j7irr6scGQGxxtQOow==" />
           <p>We read every piece of feedback, and take your input very seriously.</p>
           <textarea name="feedback" class="form-control width-full mb-2" style="height: 120px" id="feedback"></textarea>
           <input name="include_email" id="include_email" aria-label="Include my email address so I can be contacted" class="form-control mr-2" type="checkbox">
@@ -982,7 +982,7 @@
         <div data-view-component="true" class="Overlay-body">        <div data-target="custom-scopes.customScopesModalDialogFlash"></div>
 
         <div hidden class="create-custom-scope-form" data-target="custom-scopes.createCustomScopeForm">
-        <!-- '"` --><!-- </textarea></xmp> --></option></form><form id="custom-scopes-dialog-form" data-turbo="false" action="/search/custom_scopes" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="dLCl/bCeFICok3P+9wUO0JjjTU+N8HB9gLr+gXD/4ZfwRb5z1lSZjIlVIvjSf2jFn+Z7m+mCVB/BjE2MIxtN9A==" />
+        <!-- '"` --><!-- </textarea></xmp> --></option></form><form id="custom-scopes-dialog-form" data-turbo="false" action="/search/custom_scopes" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="DhKcSEQ1XZ3w5zQ2l1JKwB8dy3d6gihQf7h4fBeXq+Txyyg8MwUVEVmo3yhxbwIUCileL5H0Sqyatr6c1kFjsw==" />
           <div data-target="custom-scopes.customScopesModalDialogFlash"></div>
 
           <input type="hidden" id="custom_scope_id" name="custom_scope_id" data-target="custom-scopes.customScopesIdField">
@@ -1000,7 +1000,7 @@
                 placeholder="github-ruby"
                 required
                 maxlength="50">
-              <input type="hidden" data-csrf="true" value="UiLUrn3HLBdFTOj5jWV01UsISc/aPsONt2XjxmrJUsSgzsedbcSS3Ky1aYHhvoQB8NP9vQIKrx4Uqfjy8mruTg==" />
+              <input type="hidden" data-csrf="true" value="tsAZVRgwa7WcbbWbwq67qCaSMz+ljkL+Box4TWxQsDcFB9RbkOKvDC0GBEEGBfbQWid6IBUzvAre1YwFr5Qy0w==" />
             </auto-check>
           </div>
 
@@ -1037,7 +1037,7 @@
 </dialog></dialog-helper>
     </custom-scopes>
   </div>
-</qbsearch-input><input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="8m8BHmQj6C/11IkNuVX/ZAV3zIYL0M7RaxbvWl4ZUOrEgYL6k/kc76ZHBF5f/1lgf9nwSD03TpFIoBoI1lO+ZQ==" />
+</qbsearch-input><input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="kOPaegM51E2TIMwKDhL3qrD985LO5GWUqTHRuAHE7dJvuZvuHXPLDZhu0Zk1ghi+J8/EBUuTG6MrtOPHz4JtBA==" />
 
 
           <div class="position-relative mr-lg-3 d-lg-inline-block">
@@ -1071,10 +1071,10 @@
         <span class="js-stale-session-flash-signed-out" hidden>You signed out in another tab or window. <a class="Link--inTextBlock" href="">Reload</a> to refresh your session.</span>
         <span class="js-stale-session-flash-switched" hidden>You switched accounts on another tab or window. <a class="Link--inTextBlock" href="">Reload</a> to refresh your session.</span>
 
-    <button id="icon-button-1e0f2e60-9941-4fd4-8bff-41be56086c82" aria-labelledby="tooltip-3a82fa1c-00cd-44f6-b99f-2eee4558a064" type="button" data-view-component="true" class="Button Button--iconOnly Button--invisible Button--medium flash-close js-flash-close">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x Button-visual">
+    <button id="icon-button-4f512e15-3887-47b1-bcd1-32947802dcbf" aria-labelledby="tooltip-8b5ed7c6-7bcd-4e91-bb5b-245b6fd9f3bf" type="button" data-view-component="true" class="Button Button--iconOnly Button--invisible Button--medium flash-close js-flash-close">  <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x Button-visual">
     <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
 </svg>
-</button><tool-tip id="tooltip-3a82fa1c-00cd-44f6-b99f-2eee4558a064" for="icon-button-1e0f2e60-9941-4fd4-8bff-41be56086c82" popover="manual" data-direction="s" data-type="label" data-view-component="true" class="sr-only position-absolute">Dismiss alert</tool-tip>
+</button><tool-tip id="tooltip-8b5ed7c6-7bcd-4e91-bb5b-245b6fd9f3bf" for="icon-button-4f512e15-3887-47b1-bcd1-32947802dcbf" popover="manual" data-direction="s" data-type="label" data-view-component="true" class="sr-only position-absolute">Dismiss alert</tool-tip>
 
 
   
@@ -1817,9 +1817,9 @@
       <div class="overflow-hidden col-md-6 rounded-right-3">
     <div class="d-flex flex-wrap position-relative top-n12 mt-n4 right-n4 p-4 js-build-in-trigger" style="transform: rotate(-15deg) translateZ(10px); max-height: 480px;" data-build-in-stagger="75">
         <div class="col-6 col-sm-4 col-md-6 col-lg-4">
-          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/homebrew">
-            <img alt="Homebrew avatar" width="96" height="96" class="d-block rounded" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/homebrew-c7e38eeacb52.png" />
-            <div class="color-fg-muted text-truncate my-2">Homebrew</div>
+          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/yyx990803">
+            <img alt="Evan You avatar" width="96" height="96" class="d-block circle" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/yyx990803-e11c7b140b17.jpeg" />
+            <div class="color-fg-muted text-truncate my-2">Evan You</div>
             <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
       <span class="Button-visual Button-leadingVisual">
         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
@@ -1859,6 +1859,62 @@
 </button>
 </a>        </div>
         <div class="col-6 col-sm-4 col-md-6 col-lg-4">
+          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/curl">
+            <img alt="curl avatar" width="96" height="96" class="d-block rounded" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/curl-24ff778d1afc.jpeg" />
+            <div class="color-fg-muted text-truncate my-2">curl</div>
+            <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
+      <span class="Button-visual Button-leadingVisual">
+        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
+    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
+</svg>
+      </span>
+    <span class="Button-label">Sponsor</span>
+  </span>
+</button>
+</a>        </div>
+        <div class="col-6 col-sm-4 col-md-6 col-lg-4">
+          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/imolorhe">
+            <img alt="Samuel avatar" width="96" height="96" class="d-block circle" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/imolorhe-9d771b1d4332.jpeg" />
+            <div class="color-fg-muted text-truncate my-2">Samuel</div>
+            <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
+      <span class="Button-visual Button-leadingVisual">
+        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
+    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
+</svg>
+      </span>
+    <span class="Button-label">Sponsor</span>
+  </span>
+</button>
+</a>        </div>
+        <div class="col-6 col-sm-4 col-md-6 col-lg-4">
+          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/homebrew">
+            <img alt="Homebrew avatar" width="96" height="96" class="d-block rounded" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/homebrew-c7e38eeacb52.png" />
+            <div class="color-fg-muted text-truncate my-2">Homebrew</div>
+            <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
+      <span class="Button-visual Button-leadingVisual">
+        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
+    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
+</svg>
+      </span>
+    <span class="Button-label">Sponsor</span>
+  </span>
+</button>
+</a>        </div>
+        <div class="col-6 col-sm-4 col-md-6 col-lg-4">
+          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/commandpost">
+            <img alt="CommandPost avatar" width="96" height="96" class="d-block rounded" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/commandpost-18d45fffda67.png" />
+            <div class="color-fg-muted text-truncate my-2">CommandPost</div>
+            <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
+      <span class="Button-visual Button-leadingVisual">
+        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
+    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
+</svg>
+      </span>
+    <span class="Button-label">Sponsor</span>
+  </span>
+</button>
+</a>        </div>
+        <div class="col-6 col-sm-4 col-md-6 col-lg-4">
           <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/chaynhq">
             <img alt="chaynHQ avatar" width="96" height="96" class="d-block rounded" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/chaynhq-4c5953025dca.png" />
             <div class="color-fg-muted text-truncate my-2">chaynHQ</div>
@@ -1873,65 +1929,9 @@
 </button>
 </a>        </div>
         <div class="col-6 col-sm-4 col-md-6 col-lg-4">
-          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/yyx990803">
-            <img alt="Evan You avatar" width="96" height="96" class="d-block circle" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/yyx990803-e11c7b140b17.jpeg" />
-            <div class="color-fg-muted text-truncate my-2">Evan You</div>
-            <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
-      <span class="Button-visual Button-leadingVisual">
-        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
-    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
-</svg>
-      </span>
-    <span class="Button-label">Sponsor</span>
-  </span>
-</button>
-</a>        </div>
-        <div class="col-6 col-sm-4 col-md-6 col-lg-4">
-          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/eslint">
-            <img alt="ESLint avatar" width="96" height="96" class="d-block rounded" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/eslint-33bd6140c37f.png" />
-            <div class="color-fg-muted text-truncate my-2">ESLint</div>
-            <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
-      <span class="Button-visual Button-leadingVisual">
-        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
-    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
-</svg>
-      </span>
-    <span class="Button-label">Sponsor</span>
-  </span>
-</button>
-</a>        </div>
-        <div class="col-6 col-sm-4 col-md-6 col-lg-4">
           <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/kazupon">
             <img alt="kazuya kawaguchi avatar" width="96" height="96" class="d-block circle" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/kazupon-d7aeb7b8df20.jpeg" />
             <div class="color-fg-muted text-truncate my-2">kazuya kawaguchi</div>
-            <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
-      <span class="Button-visual Button-leadingVisual">
-        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
-    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
-</svg>
-      </span>
-    <span class="Button-label">Sponsor</span>
-  </span>
-</button>
-</a>        </div>
-        <div class="col-6 col-sm-4 col-md-6 col-lg-4">
-          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/sindresorhus">
-            <img alt="sindresorhus avatar" width="96" height="96" class="d-block circle" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/sindresorhus-d3224f241a4d.jpeg" />
-            <div class="color-fg-muted text-truncate my-2">sindresorhus</div>
-            <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
-      <span class="Button-visual Button-leadingVisual">
-        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">
-    <path d="m8 14.25.345.666a.75.75 0 0 1-.69 0l-.008-.004-.018-.01a7.152 7.152 0 0 1-.31-.17 22.055 22.055 0 0 1-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.066 22.066 0 0 1-3.744 2.584l-.018.01-.006.003h-.002ZM4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.58 20.58 0 0 0 8 13.393a20.58 20.58 0 0 0 3.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.749.749 0 0 1-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5Z"></path>
-</svg>
-      </span>
-    <span class="Button-label">Sponsor</span>
-  </span>
-</button>
-</a>        </div>
-        <div class="col-6 col-sm-4 col-md-6 col-lg-4">
-          <a target="_blank" class="rounded p-4 border color-bg-subtle no-underline d-flex flex-column flex-items-center m-2 box-shadow-default-mktg js-build-in-item build-in-scale-up" tabindex="-1" href="/curl">
-            <img alt="curl avatar" width="96" height="96" class="d-block rounded" loading="lazy" decoding="async" src="https://github.githubassets.com/assets/curl-24ff778d1afc.jpeg" />
-            <div class="color-fg-muted text-truncate my-2">curl</div>
             <button tabindex="-1" type="button" data-view-component="true" class="Button--secondary Button--medium Button">  <span class="Button-content">
       <span class="Button-visual Button-leadingVisual">
         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-heart">

@@ -42,7 +42,6 @@ func createHTMLFile(filename, directory, content string) error {
 }
 
 func main() {
-	p := fmt.Println
 
 	srcPtr := flag.String("src", "nodata", "the url file source")
 	destinationPtr := flag.String("destination", "/home/artem/Documents/rbs-prac/firstexample/defaultdir", "the destination directory")
@@ -52,7 +51,7 @@ func main() {
 		log.Fatal("Error: Source flag value is not entered")
 	}
 	if *destinationPtr == "/home/artem/Documents/rbs-prac/firstexample/defaultdir" {
-		p("Warning: Destination flag value is not entered. The defaultdir directory is used for storing the results")
+		fmt.Println("Warning: Destination flag value is not entered. The defaultdir directory is used for storing the results")
 	}
 
 	startingMoment := time.Now()
@@ -81,16 +80,16 @@ func main() {
 		}
 	}
 
-	p("Amount of lines in the URLs file = ", len(urldata))
+	fmt.Println("Amount of lines in the URLs file = ", len(urldata))
 
 	for _, line := range urldata {
 		if isValidURL("https://"+line) == true {
 			resp, err := http.Get("https://" + line)
 			if err != nil {
-				p("ERROR", line)
+				fmt.Println("ERROR", line)
 			}
 			defer resp.Body.Close()
-			p("OK ", line)
+			fmt.Println("OK ", line)
 			body, err := io.ReadAll(resp.Body)
 			if err != nil {
 				log.Fatal(err)
@@ -104,14 +103,14 @@ func main() {
 
 			createHTMLFile(line, *destinationPtr, string(body))
 		} else {
-			p("ER ", line)
+			fmt.Println("ER ", line)
 		}
 	}
 
 	endingMoment := time.Now()
 
-	p("duration: ", endingMoment.Sub(startingMoment))
-	p("src value: ", *srcPtr)
-	p("destination value: ", *destinationPtr)
+	fmt.Println("duration: ", endingMoment.Sub(startingMoment))
+	fmt.Println("src value: ", *srcPtr)
+	fmt.Println("destination value: ", *destinationPtr)
 
 }

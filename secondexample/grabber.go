@@ -13,7 +13,6 @@ import (
 	"time"
 )
 
-var p = fmt.Println
 var srcPtr = flag.String("src", "nodata", "the url file source")
 var destinationPtr = flag.String("destination", "/home/artem/Documents/rbs-prac/secondexample/defaultdir", "the destination directory")
 
@@ -51,7 +50,7 @@ func handleURL(line string, results chan<- string, wg *sync.WaitGroup) {
 	if isValidURL("https://"+line) == true {
 		resp, err := http.Get("https://" + line)
 		if err != nil {
-			p("ERROR", line)
+			fmt.Println("ERROR", line)
 		}
 		defer resp.Body.Close()
 		results <- "OK " + line
@@ -73,7 +72,6 @@ func handleURL(line string, results chan<- string, wg *sync.WaitGroup) {
 }
 
 func main() {
-	p := fmt.Println
 
 	flag.Parse()
 
@@ -81,7 +79,7 @@ func main() {
 		log.Fatal("Error: Source flag value is not entered")
 	}
 	if *destinationPtr == "/home/artem/Documents/rbs-prac/secondexample/defaultdir" {
-		p("Warning: Destination flag value is not entered. The defaultdir directory is used for storing the results")
+		fmt.Println("Warning: Destination flag value is not entered. The defaultdir directory is used for storing the results")
 	}
 
 	startingMoment := time.Now()
@@ -110,7 +108,7 @@ func main() {
 		}
 	}
 
-	p("Amount of lines in the URLs file = ", len(urldata))
+	fmt.Println("Amount of lines in the URLs file = ", len(urldata))
 
 	var wg sync.WaitGroup
 	wg.Add(len(urldata))
@@ -132,8 +130,8 @@ func main() {
 
 	endingMoment := time.Now()
 
-	p("duration: ", endingMoment.Sub(startingMoment))
-	p("src value: ", *srcPtr)
-	p("destination value: ", *destinationPtr)
+	fmt.Println("duration: ", endingMoment.Sub(startingMoment))
+	fmt.Println("src value: ", *srcPtr)
+	fmt.Println("destination value: ", *destinationPtr)
 
 }
