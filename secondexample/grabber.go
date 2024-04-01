@@ -13,23 +13,47 @@ import (
 	"time"
 )
 
-var srcPtr = flag.String("src", "nodata", "the url file source")
-var destinationPtr = flag.String("destination", "/home/artem/Documents/rbs-prac/secondexample/defaultdir", "the destination directory")
+func handleURL(line string, results chan<- string, wg *sync.WaitGroup, dstPtr *string) {
+	defer wg.Done()
+	body, status := isValidURL(line, results)
+	if status {
+		index := strings.IndexRune(line, '.')
+		if index != -1 {
+			line = line[:index]
+		}
 
-func isValidURL(url string) bool {
-	resp, err := http.Head(url)
-	if err != nil {
-		return false
+		err := createHTMLFile(line, *dstPtr, string(body))
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return false
-	}
-	return true
 }
 
+// isValidURL - отправляет запрос по URL и
+func isValidURL(urlname string, results chan<- string) (string, bool) {
+	resp, err := http.Get(fmt.Sprintf("https://%s", urlname))
+	if err != nil {
+		results <- "ER " + urlname
+		return "", false
+	}
+	defer resp.Body.Close()
+	results <- "OK " + urlname
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return string(body), true
+}
+
+// createHTMLFile - создает HTML-файл в указанной директории
 func createHTMLFile(filename, directory, content string) error {
+	_, err := os.Stat(directory)
+	if os.IsNotExist(err) {
+		err := os.Mkdir(directory, 0755)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	filePath := filepath.Join(directory, filename)
 	file, err := os.Create(filePath)
 	if err != nil {
@@ -45,43 +69,20 @@ func createHTMLFile(filename, directory, content string) error {
 	return nil
 }
 
-func handleURL(line string, results chan<- string, wg *sync.WaitGroup) {
-	defer wg.Done()
-	if isValidURL("https://"+line) == true {
-		resp, err := http.Get("https://" + line)
-		if err != nil {
-			fmt.Println("ERROR", line)
-		}
-		defer resp.Body.Close()
-		results <- "OK " + line
-		body, err := io.ReadAll(resp.Body)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		index := strings.IndexRune(line, '.')
-
-		if index != -1 {
-			line = line[:index]
-		}
-
-		createHTMLFile(line, *destinationPtr, string(body))
-	} else {
-		results <- "ER " + line
-	}
-}
-
 func main() {
-
+	var srcPtr = flag.String("src", "nodata", "the url file source")
+	var dstPtr = flag.String("dst", "./defaultdir", "the destination directory")
 	flag.Parse()
 
 	if *srcPtr == "nodata" {
-		log.Fatal("Error: Source flag value is not entered")
+		log.Fatal("Error: Missing source flag value. Add it using --src=<file path>")
 	}
-	if *destinationPtr == "/home/artem/Documents/rbs-prac/secondexample/defaultdir" {
+	if *dstPtr == "./defaultdir" {
 		fmt.Println("Warning: Destination flag value is not entered. The defaultdir directory is used for storing the results")
 	}
 
+	fmt.Println("src value: ", *srcPtr)
+	fmt.Println("destination value: ", *dstPtr)
 	startingMoment := time.Now()
 
 	file, err := os.Open(*srcPtr)
@@ -90,33 +91,19 @@ func main() {
 	}
 	defer file.Close()
 
-	var urldata []string
-	buffer := make([]byte, 1024)
-
-	for {
-		n, err := file.Read(buffer)
-		if n > 0 {
-			str := string(buffer[:n])
-			splitLines := strings.Split(str, "\n")
-			urldata = append(urldata, splitLines...)
-		}
-		if err != nil {
-			if err.Error() == "EOF" {
-				break
-			}
-			log.Fatal(err)
-		}
+	urldata, err := io.ReadAll(file)
+	if err != nil {
+		log.Fatal(err)
 	}
-
-	fmt.Println("Amount of lines in the URLs file = ", len(urldata))
+	lines := strings.Split(string(urldata), "\n")
 
 	var wg sync.WaitGroup
-	wg.Add(len(urldata))
+	wg.Add(len(lines))
 
-	results := make(chan string, len(urldata))
+	results := make(chan string, len(lines))
 
-	for _, line := range urldata {
-		go handleURL(line, results, &wg)
+	for _, line := range lines {
+		go handleURL(line, results, &wg, dstPtr)
 	}
 
 	go func() {
@@ -131,7 +118,4 @@ func main() {
 	endingMoment := time.Now()
 
 	fmt.Println("duration: ", endingMoment.Sub(startingMoment))
-	fmt.Println("src value: ", *srcPtr)
-	fmt.Println("destination value: ", *destinationPtr)
-
 }

@@ -12,20 +12,31 @@ import (
 	"time"
 )
 
-func isValidURL(url string) bool {
-	resp, err := http.Head(url)
+// isValidURL - отправляет запрос по URL и
+func isValidURL(urlname string) (string, bool) {
+	resp, err := http.Get(fmt.Sprintf("https://%s", urlname))
 	if err != nil {
-		return false
+		fmt.Printf("ER %s\r\n", urlname)
+		return "", false
 	}
 	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return false
+	fmt.Printf("OK %s\r\n", urlname)
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
 	}
-	return true
+	return string(body), true
 }
 
+// createHTMLFile - создает HTML-файл в указанной директории
 func createHTMLFile(filename, directory, content string) error {
+	_, err := os.Stat(directory)
+	if os.IsNotExist(err) {
+		err := os.Mkdir(directory, 0755)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	filePath := filepath.Join(directory, filename)
 	file, err := os.Create(filePath)
 	if err != nil {
@@ -42,18 +53,19 @@ func createHTMLFile(filename, directory, content string) error {
 }
 
 func main() {
-
 	srcPtr := flag.String("src", "nodata", "the url file source")
-	destinationPtr := flag.String("destination", "/home/artem/Documents/rbs-prac/firstexample/defaultdir", "the destination directory")
+	dstPtr := flag.String("dst", "./defaultdir", "the destination directory")
 	flag.Parse()
 
 	if *srcPtr == "nodata" {
-		log.Fatal("Error: Source flag value is not entered")
+		log.Fatal("Error: Missing source flag value. Add it using --src=<file path>")
 	}
-	if *destinationPtr == "/home/artem/Documents/rbs-prac/firstexample/defaultdir" {
+	if *dstPtr == "./defaultdir" {
 		fmt.Println("Warning: Destination flag value is not entered. The defaultdir directory is used for storing the results")
 	}
 
+	fmt.Println("src value: ", *srcPtr)
+	fmt.Println("destination value: ", *dstPtr)
 	startingMoment := time.Now()
 
 	file, err := os.Open(*srcPtr)
@@ -62,55 +74,28 @@ func main() {
 	}
 	defer file.Close()
 
-	var urldata []string
-	buffer := make([]byte, 1024)
-
-	for {
-		n, err := file.Read(buffer)
-		if n > 0 {
-			str := string(buffer[:n])
-			splitLines := strings.Split(str, "\n")
-			urldata = append(urldata, splitLines...)
-		}
-		if err != nil {
-			if err.Error() == "EOF" {
-				break
-			}
-			log.Fatal(err)
-		}
+	urldata, err := io.ReadAll(file)
+	if err != nil {
+		log.Fatal(err)
 	}
+	lines := strings.Split(string(urldata), "\n")
 
-	fmt.Println("Amount of lines in the URLs file = ", len(urldata))
-
-	for _, line := range urldata {
-		if isValidURL("https://"+line) == true {
-			resp, err := http.Get("https://" + line)
-			if err != nil {
-				fmt.Println("ERROR", line)
-			}
-			defer resp.Body.Close()
-			fmt.Println("OK ", line)
-			body, err := io.ReadAll(resp.Body)
-			if err != nil {
-				log.Fatal(err)
-			}
-
+	for _, line := range lines {
+		body, status := isValidURL(line)
+		if status {
 			index := strings.IndexRune(line, '.')
-
 			if index != -1 {
 				line = line[:index]
 			}
 
-			createHTMLFile(line, *destinationPtr, string(body))
-		} else {
-			fmt.Println("ER ", line)
+			err := createHTMLFile(line, *dstPtr, string(body))
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
 
 	endingMoment := time.Now()
 
 	fmt.Println("duration: ", endingMoment.Sub(startingMoment))
-	fmt.Println("src value: ", *srcPtr)
-	fmt.Println("destination value: ", *destinationPtr)
-
 }
