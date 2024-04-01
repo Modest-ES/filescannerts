@@ -12,8 +12,8 @@ import (
 	"time"
 )
 
-// isValidURL - отправляет запрос по URL и возвращает считанные данные и статус валидности
-func isValidURL(urlname string) (string, bool) {
+// readHTMLData - отправляет запрос по URL и возвращает считанные данные и статус валидности
+func readHTMLData(urlname string) (string, bool) {
 	resp, err := http.Get(fmt.Sprintf("https://%s", urlname))
 	if err != nil {
 		fmt.Printf("ER %s\r\n", urlname)
@@ -81,7 +81,7 @@ func main() {
 	lines := strings.Split(string(urldata), "\n")
 
 	for _, line := range lines {
-		body, status := isValidURL(line)
+		body, status := readHTMLData(line)
 		if status {
 			index := strings.IndexRune(line, '.')
 			if index != -1 {

@@ -14,9 +14,9 @@ import (
 )
 
 // handleURL - обрабатывает запрос по url
-func handleURL(line string, results chan<- string, wg *sync.WaitGroup, dstPtr *string) {
+func handleURL(line string, wg *sync.WaitGroup, dstPtr *string) {
 	defer wg.Done()
-	body, status := isValidURL(line, results)
+	body, status := readHTMLData(line)
 	if status {
 		index := strings.IndexRune(line, '.')
 		if index != -1 {
@@ -30,15 +30,15 @@ func handleURL(line string, results chan<- string, wg *sync.WaitGroup, dstPtr *s
 	}
 }
 
-// isValidURL - отправляет запрос по URL и возвращает считанные данные и статус валидности
-func isValidURL(urlname string, results chan<- string) (string, bool) {
+// readHTMLData - отправляет запрос по URL и возвращает считанные данные и статус валидности
+func readHTMLData(urlname string) (string, bool) {
 	resp, err := http.Get(fmt.Sprintf("https://%s", urlname))
 	if err != nil {
-		results <- "ER " + urlname
+		fmt.Printf("ER %s\r\n", urlname)
 		return "", false
 	}
 	defer resp.Body.Close()
-	results <- "OK " + urlname
+	fmt.Printf("OK %s\r\n", urlname)
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
@@ -101,21 +101,10 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(len(lines))
 
-	results := make(chan string, len(lines))
-
 	for _, line := range lines {
-		go handleURL(line, results, &wg, dstPtr)
+		go handleURL(line, &wg, dstPtr)
 	}
-
-	go func() {
-		wg.Wait()
-		close(results)
-	}()
-
-	for result := range results {
-		fmt.Println(result)
-	}
-
+	wg.Wait()
 	endingMoment := time.Now()
 
 	fmt.Println("duration: ", endingMoment.Sub(startingMoment))
