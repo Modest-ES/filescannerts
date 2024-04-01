@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-// isValidURL - отправляет запрос по URL и
+// isValidURL - отправляет запрос по URL и возвращает считанные данные и статус валидности
 func isValidURL(urlname string) (string, bool) {
 	resp, err := http.Get(fmt.Sprintf("https://%s", urlname))
 	if err != nil {

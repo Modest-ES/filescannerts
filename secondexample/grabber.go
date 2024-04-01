@@ -13,6 +13,7 @@ import (
 	"time"
 )
 
+// handleURL - обрабатывает запрос по url
 func handleURL(line string, results chan<- string, wg *sync.WaitGroup, dstPtr *string) {
 	defer wg.Done()
 	body, status := isValidURL(line, results)
@@ -29,7 +30,7 @@ func handleURL(line string, results chan<- string, wg *sync.WaitGroup, dstPtr *s
 	}
 }
 
-// isValidURL - отправляет запрос по URL и
+// isValidURL - отправляет запрос по URL и возвращает считанные данные и статус валидности
 func isValidURL(urlname string, results chan<- string) (string, bool) {
 	resp, err := http.Get(fmt.Sprintf("https://%s", urlname))
 	if err != nil {
