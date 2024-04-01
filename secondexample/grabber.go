@@ -105,6 +105,7 @@ func main() {
 		go handleURL(line, &wg, dstPtr)
 	}
 	wg.Wait()
+
 	endingMoment := time.Now()
 
 	fmt.Println("duration: ", endingMoment.Sub(startingMoment))
