@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"sync"
 	"time"
 )
 
@@ -42,6 +43,7 @@ func getRootData(rootpath string) ([]File, error) {
 		return nil, err
 	}
 	var files []File
+	var wg sync.WaitGroup
 
 	for _, fileEntry := range fileEntries {
 		path := filepath.Join(rootpath, fileEntry.Name())
@@ -51,29 +53,44 @@ func getRootData(rootpath string) ([]File, error) {
 		}
 
 		if fileInfo.IsDir() {
-			size, err := calculateFolderSize(path)
-			if err != nil {
-				return nil, err
-			}
-			files = append(files, File{FileName: fileInfo.Name(), FileSize: size, FileType: "folder"})
+			wg.Add(1)
+			go func(directoryPath string) {
+				defer wg.Done()
+				size, err := calculateFolderSize(directoryPath)
+				if err != nil {
+					log.Fatal(err)
+				}
+				files = append(files, File{FileName: fileInfo.Name(), FileSize: size, FileType: "folder"})
+			}(path)
+
 		} else {
 			files = append(files, File{FileName: fileInfo.Name(), FileSize: fileInfo.Size(), FileType: "file"})
 		}
 	}
-
+	wg.Wait()
 	return files, nil
 }
 
 // calculateFolderSize возвращает размер папки по указанному пути
 func calculateFolderSize(path string) (int64, error) {
 	var size int64
+	var wg sync.WaitGroup
+	var mu sync.Mutex
 	_ = filepath.Walk(path, func(subpath string, info os.FileInfo, err error) error {
 		if err != nil {
 			log.Fatal(err)
 		}
-		size += info.Size()
+		wg.Add(1)
+		go func(info os.FileInfo) {
+			defer wg.Done()
+			mu.Lock()
+			defer mu.Unlock()
+			size += info.Size()
+		}(info)
+
 		return nil
 	})
+	wg.Wait()
 	return size, nil
 }
 
