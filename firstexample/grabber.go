@@ -78,17 +78,17 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	lines := strings.Split(string(urldata), "\n")
+	urls := strings.Split(string(urldata), "\n")
 
-	for _, line := range lines {
-		body, status := readHTMLData(line)
+	for _, url := range urls {
+		body, status := readHTMLData(url)
 		if status {
-			index := strings.IndexRune(line, '.')
+			index := strings.IndexRune(url, '.')
 			if index != -1 {
-				line = line[:index]
+				url = url[:index]
 			}
 
-			err := createHTMLFile(line, *dstPtr, string(body))
+			err := createHTMLFile(url, *dstPtr, string(body))
 			if err != nil {
 				log.Fatal(err)
 			}

@@ -14,19 +14,20 @@ import (
 )
 
 // handleURL - обрабатывает запрос по url
-func handleURL(line string, wg *sync.WaitGroup, dstPtr *string) {
+func handleURL(url string, wg *sync.WaitGroup, dstPtr *string) {
 	defer wg.Done()
-	body, status := readHTMLData(line)
-	if status {
-		index := strings.IndexRune(line, '.')
-		if index != -1 {
-			line = line[:index]
-		}
+	body, status := readHTMLData(url)
+	if !status {
+		return
+	}
+	index := strings.IndexRune(url, '.')
+	if index != -1 {
+		url = url[:index]
+	}
 
-		err := createHTMLFile(line, *dstPtr, string(body))
-		if err != nil {
-			log.Fatal(err)
-		}
+	err := createHTMLFile(url, *dstPtr, string(body))
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
@@ -96,13 +97,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	lines := strings.Split(string(urldata), "\n")
+	urls := strings.Split(string(urldata), "\n")
 
 	var wg sync.WaitGroup
-	wg.Add(len(lines))
+	wg.Add(len(urls))
 
-	for _, line := range lines {
-		go handleURL(line, &wg, dstPtr)
+	for _, url := range urls {
+		go handleURL(url, &wg, dstPtr)
 	}
 	wg.Wait()
 
