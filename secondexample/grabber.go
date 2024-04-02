@@ -79,11 +79,11 @@ func main() {
 		log.Fatal("Error: Missing source flag value. Add it using --src=<file path>")
 	}
 	if *dstPtr == "./defaultdir" {
-		fmt.Println("Warning: Destination flag value is not entered. The defaultdir directory is used for storing the results")
+		fmt.Println("Warning: Destination flag (--dst) value is not entered. The defaultdir directory is used for storing the results")
 	}
 
 	fmt.Println("src value: ", *srcPtr)
-	fmt.Println("destination value: ", *dstPtr)
+	fmt.Println("dst value: ", *dstPtr)
 	startingMoment := time.Now()
 
 	file, err := os.Open(*srcPtr)
@@ -108,5 +108,5 @@ func main() {
 
 	endingMoment := time.Now()
 
-	fmt.Println("duration: ", endingMoment.Sub(startingMoment))
+	fmt.Println("Duration: ", endingMoment.Sub(startingMoment))
 }
