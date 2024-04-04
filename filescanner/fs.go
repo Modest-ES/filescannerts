@@ -17,6 +17,11 @@ type File struct {
 	FileType string // тип: папка или файл
 }
 
+// String возвращает строку со всеми значениями параметров структуры File
+func (file File) String() string {
+	return fmt.Sprintf("%-7s %-30s %s", file.FileType, file.FileName, fileSizeToString(file.FileSize))
+}
+
 // FileArray - массив структур File - вспомогательный тип для настройки сортировки структур File по полю FileSize
 type FileArray []File
 
@@ -128,7 +133,7 @@ func main() {
 
 	fmt.Println("root directory content:\n---")
 	for _, file := range files {
-		fmt.Printf("%-7s %-30s %s\n", file.FileType, file.FileName, fileSizeToString(file.FileSize))
+		fmt.Println(file)
 	}
 
 	endingMoment := time.Now()
