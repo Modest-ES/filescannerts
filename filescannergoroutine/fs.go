@@ -19,6 +19,11 @@ type File struct {
 	FileType string // тип: папка или файл
 }
 
+// String возвращает строку со всеми значениями параметров структуры File
+func (file File) String() string {
+	return fmt.Sprintf("%-7s %-30s %s", file.FileType, file.FileName, fileSizeToString(file.FileSize))
+}
+
 // FileArray - массив структур File - вспомогательный тип для настройки сортировки структур File по полю FileSize
 type FileArray []File
 
