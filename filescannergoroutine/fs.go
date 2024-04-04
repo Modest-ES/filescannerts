@@ -1,9 +1,10 @@
 package main
 
 import (
-	"flag"
+	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"sort"
@@ -117,38 +118,44 @@ func fileSizeToString(size int64) string {
 	}
 }
 
-func main() {
-	rootPtr := flag.String("root", "nodata", "the root directory")
-	sortPtr := flag.String("sort", "asc", "the sorting option")
-	flag.Parse()
-
-	if *rootPtr == "nodata" {
-		log.Fatal("Error: Missing root flag value. Add it using --root=<path>")
+// handleRequest обрабатывает запрос на http-сервер, вызывает чтение данных из указанной директории, сортирует и выводит прочитанную информацию в формате json
+func handleRequest(respWriter http.ResponseWriter, request *http.Request) {
+	startingMoment := time.Now()
+	root := request.URL.Query().Get("root")
+	if root == "" {
+		http.Error(respWriter, "the 'root' parameter value was not provided", http.StatusBadRequest)
+		return
 	}
 
-	fmt.Println("root value: ", *rootPtr)
-	fmt.Println("sort value: ", *sortPtr)
-
-	startingMoment := time.Now()
-	files, err := getRootData(*rootPtr)
+	files, err := getRootData(root)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if *sortPtr == "asc" {
+	sortMode := request.URL.Query().Get("sort")
+	if sortMode == "asc" || sortMode == "" {
 		sort.Sort(FileArray(files))
-	} else if *sortPtr == "desc" {
+	} else if sortMode == "desc" {
 		sort.Sort(sort.Reverse(FileArray(files)))
 	} else {
-		log.Fatal("Error: incorrect value for --sort flag. Use either --sort=asc or --sort=desc")
+		log.Fatal("Error: incorrect value for sort parameter. Use either sort=asc or sort=desc")
 	}
 
-	fmt.Println("root directory content:\n---")
-	for _, file := range files {
-		fmt.Printf("%-7s %-30s %s\n", file.FileType, file.FileName, fileSizeToString(file.FileSize))
+	jsonData, err := json.Marshal(files)
+	if err != nil {
+		http.Error(respWriter, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
+	respWriter.Header().Set("Content-Type", "application/json")
+	respWriter.Write(jsonData)
 	endingMoment := time.Now()
 
 	fmt.Println("---\nduration: ", endingMoment.Sub(startingMoment))
+}
+
+func main() {
+	http.HandleFunc("/", handleRequest)
+	log.Println("Starting a server on port 9000")
+	log.Fatal(http.ListenAndServe(":9000", nil))
 }
