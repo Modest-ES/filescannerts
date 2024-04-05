@@ -3,20 +3,38 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"sort"
 	"sync"
+	"syscall"
 	"time"
 )
 
+// Config содержит конфигурацию запускаемого сервера
+type Config struct {
+	Port int64
+}
+
+// FileScannerData описывает структуру выполнения программы
+type FileScannerData struct {
+	RootPath     string // адрес директории считывания файлов
+	Duration     string // длительность выполнения программы
+	FilesList    []File // список файлов и папок с их размерами
+	Status       int    // поле, равное 0 при отсутствии ошибок работы программы, или 1 при их наличии
+	ErrorMessage string // текст ошибки при ее наличии
+}
+
 // File описывает структуру файла из директории
 type File struct {
-	FileName string // название файла
-	FileSize int64  // размер файла в битах
-	FileType string // тип: папка или файл
+	FileName       string // название файла
+	FileSize       int64  // размер файла в битах
+	FileSizeString string // размер файла в строковом формате
+	FileType       string // тип: папка или файл
 }
 
 // String возвращает строку со всеми значениями параметров структуры File
@@ -66,11 +84,11 @@ func getRootData(rootpath string) ([]File, error) {
 				if err != nil {
 					log.Fatal(err)
 				}
-				files = append(files, File{FileName: fileInfo.Name(), FileSize: size, FileType: "folder"})
+				files = append(files, File{FileName: fileInfo.Name(), FileSize: size, FileSizeString: fileSizeToString(size), FileType: "folder"})
 			}(path)
 
 		} else {
-			files = append(files, File{FileName: fileInfo.Name(), FileSize: fileInfo.Size(), FileType: "file"})
+			files = append(files, File{FileName: fileInfo.Name(), FileSize: fileInfo.Size(), FileSizeString: fileSizeToString(fileInfo.Size()), FileType: "file"})
 		}
 	}
 	wg.Wait()
@@ -80,23 +98,13 @@ func getRootData(rootpath string) ([]File, error) {
 // calculateFolderSize возвращает размер папки по указанному пути
 func calculateFolderSize(path string) (int64, error) {
 	var size int64
-	var wg sync.WaitGroup
-	var mu sync.Mutex
 	_ = filepath.Walk(path, func(subpath string, info os.FileInfo, err error) error {
 		if err != nil {
 			log.Fatal(err)
 		}
-		wg.Add(1)
-		go func(info os.FileInfo) {
-			defer wg.Done()
-			mu.Lock()
-			defer mu.Unlock()
-			size += info.Size()
-		}(info)
-
+		size += info.Size()
 		return nil
 	})
-	wg.Wait()
 	return size, nil
 }
 
@@ -123,18 +131,47 @@ func fileSizeToString(size int64) string {
 	}
 }
 
+// writeJsonData
+func writeJsonData(fileScannerData FileScannerData, respWriter http.ResponseWriter) {
+	jsonData, err := json.Marshal(fileScannerData)
+	if err != nil {
+		http.Error(respWriter, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	respWriter.Header().Set("Content-Type", "application/json")
+	respWriter.Write(jsonData)
+}
+
 // handleRequest обрабатывает запрос на http-сервер, вызывает чтение данных из указанной директории, сортирует и выводит прочитанную информацию в формате json
 func handleRequest(respWriter http.ResponseWriter, request *http.Request) {
 	startingMoment := time.Now()
 	root := request.URL.Query().Get("root")
 	if root == "" {
-		http.Error(respWriter, "the 'root' parameter value was not provided", http.StatusBadRequest)
+		duration := time.Since(startingMoment).String()
+		fileScannerData := FileScannerData{
+			RootPath:     root,
+			Duration:     duration,
+			FilesList:    []File{},
+			Status:       1,
+			ErrorMessage: "The value of root parameter is not provided. Use '/?root=<path>' to enter the path to the root directory",
+		}
+		writeJsonData(fileScannerData, respWriter)
 		return
 	}
 
 	files, err := getRootData(root)
 	if err != nil {
-		log.Fatal(err)
+		duration := time.Since(startingMoment).String()
+		fileScannerData := FileScannerData{
+			RootPath:     root,
+			Duration:     duration,
+			FilesList:    []File{},
+			Status:       1,
+			ErrorMessage: err.Error(),
+		}
+		writeJsonData(fileScannerData, respWriter)
+		return
 	}
 
 	sortMode := request.URL.Query().Get("sort")
@@ -143,24 +180,66 @@ func handleRequest(respWriter http.ResponseWriter, request *http.Request) {
 	} else if sortMode == "desc" {
 		sort.Sort(sort.Reverse(FileArray(files)))
 	} else {
-		log.Fatal("Error: incorrect value for sort parameter. Use either sort=asc or sort=desc")
-	}
-
-	jsonData, err := json.Marshal(files)
-	if err != nil {
-		http.Error(respWriter, err.Error(), http.StatusInternalServerError)
+		duration := time.Since(startingMoment).String()
+		fileScannerData := FileScannerData{
+			RootPath:     root,
+			Duration:     duration,
+			FilesList:    []File{},
+			Status:       1,
+			ErrorMessage: "The sort parameter value is incorrect. Use either sort=asc or sort=desc",
+		}
+		writeJsonData(fileScannerData, respWriter)
 		return
 	}
 
-	respWriter.Header().Set("Content-Type", "application/json")
-	respWriter.Write(jsonData)
-	endingMoment := time.Now()
+	duration := time.Since(startingMoment).String()
 
-	fmt.Println("---\nduration: ", endingMoment.Sub(startingMoment))
+	fileScannerData := FileScannerData{
+		RootPath:     root,
+		Duration:     duration,
+		FilesList:    files,
+		Status:       0,
+		ErrorMessage: "",
+	}
+	writeJsonData(fileScannerData, respWriter)
 }
 
 func main() {
+	fmt.Println("Program started")
+
+	configFile, err := os.Open("config.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer configFile.Close()
+
+	byteValueConfig, err := io.ReadAll(configFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var config Config
+	if err := json.Unmarshal(byteValueConfig, &config); err != nil {
+		log.Fatal(err)
+	}
+
 	http.HandleFunc("/", handleRequest)
-	log.Println("Starting a server on port 9000")
-	log.Fatal(http.ListenAndServe(":9000", nil))
+
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		for sig := range sigChan {
+			switch sig {
+			case syscall.SIGINT:
+				fmt.Println("Signal Interrupt (SIGINT) encountered. Shutting down")
+				os.Exit(0)
+			case syscall.SIGTERM:
+				fmt.Println("Signal Terminate (SIGTERM) encountered. Shutting down")
+				os.Exit(0)
+			}
+		}
+	}()
+
+	log.Printf("Starting a server on port %d", config.Port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil))
 }
