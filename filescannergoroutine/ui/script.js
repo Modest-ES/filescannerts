@@ -1,22 +1,31 @@
 function fetchDirectoryData() {
     const urlParameters = new URLSearchParams(window.location.search);
+    if (!urlParameters.has('sort')) {
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set('sort', 'asc');
+        window.location.href = newUrl.toString();
+    }
+    if (!urlParameters.has('root')) {
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set('root', '/home');
+        window.location.href = newUrl.toString();
+    }
     const rootParameter = urlParameters.get('root');
     const sortParameter = urlParameters.get('sort');
     let fetchUrl = './files';
     if (rootParameter) {
         fetchUrl += `?root=${rootParameter}`;
     }
+
     if (sortParameter) {
         fetchUrl += `&sort=${sortParameter}`;
     } else {
         fetchUrl += `&sort=asc`;
     }
-    console.log("Fetching URL: ", fetchUrl);
 
     fetch(fetchUrl)
     .then(response => response.json())
     .then(data => {
-        console.log('fetched data: ', data);
         displayDirectoryData(data, sortParameter ? sortParameter : 'asc');
     })
     .catch(error => {
