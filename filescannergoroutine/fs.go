@@ -20,25 +20,25 @@ type Config struct {
 }
 
 // readConfigFile возвращает считанную информацию из файла конфигурации
-func readConfigFile() Config {
+func readConfigFile() (Config, error) {
 	configFile, err := os.Open("config.json")
 	if err != nil {
-		log.Fatal(err)
+		return Config{}, err
 	}
 	defer configFile.Close()
 
 	byteValueConfig, err := io.ReadAll(configFile)
 	if err != nil {
-		log.Fatal(err)
+		return Config{}, err
 	}
 
 	var config Config
 
-	err1 := json.Unmarshal(byteValueConfig, &config)
-	if err1 != nil {
-		log.Fatal(err1)
+	err = json.Unmarshal(byteValueConfig, &config)
+	if err != nil {
+		return Config{}, err
 	}
-	return config
+	return config, nil
 }
 
 // FileScannerData описывает структуру выполнения программы
@@ -131,7 +131,10 @@ func handleFrontendDataRequest(respWriter http.ResponseWriter, request *http.Req
 func main() {
 	fmt.Println("Program started")
 
-	config := readConfigFile()
+	config, err := readConfigFile()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	staticFilesFolder := http.Dir("./ui")
 	staticFilesServer := http.FileServer(staticFilesFolder)
