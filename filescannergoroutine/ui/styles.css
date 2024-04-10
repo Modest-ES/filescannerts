@@ -82,16 +82,21 @@ header {
 
 .btn-back {
     margin-right: 10px;
-    background: rgb(85, 85, 85);
-    border-radius: 100%;
-    padding: 10px;
     color: white;
+    transition: 0.2s;
+}
+
+.btn-back img {
+    background-color: rgb(85, 85, 85);
+    border-radius: 100%;
     transition: 0.2s;
     width: 20px;
     height: 20px;
+    padding: 10px;
+    box-sizing: content-box;
 }
 
-.btn-back:hover {
+.btn-back:hover img {
     transform: scale(1.04);
     background: rgb(110, 110, 110);
 }
@@ -212,11 +217,15 @@ footer {
         flex-direction: column;
     }
 
-    .btn-back, .btn-sort img {
+    .btn-back img, .btn-sort img {
         padding: 5px;
     }
 
-    .btn-sort img {
+    .btn-back img {
+        margin-left: 0;
+    }
+
+    .btn-back img, .btn-sort img {
         width: 15px;
         height: 15px;
     }
@@ -232,4 +241,10 @@ footer {
     .file-type {
         width: 10%;
     }
+}
+
+@media (max-width: 300px) {
+    header h2 {
+        font-size: 10px;
+    } 
 }
