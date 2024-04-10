@@ -63,11 +63,11 @@ func GetRootData(rootpath string) ([]File, error) {
 				if err != nil {
 					log.Fatal(err)
 				}
-				files = append(files, File{FileName: fileInfo.Name(), FileSize: size, FileSizeString: fileSizeToString(size), FileType: "folder"})
+				files = append(files, File{FileName: fileInfo.Name(), FileSize: size, FileSizeString: fileSizeToString(size), FileType: "Folder"})
 			}(path)
 
 		} else {
-			files = append(files, File{FileName: fileInfo.Name(), FileSize: fileInfo.Size(), FileSizeString: fileSizeToString(fileInfo.Size()), FileType: "file"})
+			files = append(files, File{FileName: fileInfo.Name(), FileSize: fileInfo.Size(), FileSizeString: fileSizeToString(fileInfo.Size()), FileType: "File"})
 		}
 	}
 	wg.Wait()

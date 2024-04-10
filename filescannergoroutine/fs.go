@@ -14,8 +14,6 @@ import (
 	"time"
 )
 
-var server *http.Server
-
 // Config содержит конфигурацию запускаемого сервера
 type Config struct {
 	Port int64
@@ -129,16 +127,6 @@ func handleJsonDataRequest(respWriter http.ResponseWriter, request *http.Request
 func handleFrontendDataRequest(respWriter http.ResponseWriter, request *http.Request) {
 	http.ServeFile(respWriter, request, "./index.html")
 }
-
-// setJSContentType
-// func setJSContentType(next http.Handler) http.Handler {
-// 	return http.HandlerFunc(func(respWriter http.ResponseWriter, request *http.Request) {
-// 		if filepath.Ext(request.URL.Path) == ".js" {
-// 			respWriter.Header().Set("Content-Type", "text/javascript")
-// 		}
-// 		next.ServeHTTP(respWriter, request)
-// 	})
-// }
 
 func main() {
 	fmt.Println("Program started")
