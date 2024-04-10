@@ -146,6 +146,20 @@ h2 {
     padding: 1%;
 }
 
+.error-message {
+    background: rgba(251, 47, 47, 0.3);
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.error-message p {
+    font-family: 'Montserrat';
+    font-size: 12px;
+    word-break: break-all;
+}
+
 .fileline {
     background: rgb(80, 80, 80);
     margin-bottom: 10px;

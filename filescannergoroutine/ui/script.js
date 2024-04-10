@@ -1,17 +1,31 @@
 function fetchDirectoryData() {
     const urlParameters = new URLSearchParams(window.location.search);
     const rootParameter = urlParameters.get('root');
-    fetch(`./files?root=${rootParameter}`)
+    const sortParameter = urlParameters.get('sort');
+    let fetchUrl = './files';
+    if (rootParameter) {
+        fetchUrl += `?root=${rootParameter}`;
+    }
+    if (sortParameter) {
+        fetchUrl += `&sort=${sortParameter}`;
+    } else {
+        fetchUrl += `&sort=asc`;
+    }
+    console.log("Fetching URL: ", fetchUrl);
+
+    fetch(fetchUrl)
     .then(response => response.json())
     .then(data => {
-        displayDirectoryData(data);
+        console.log('fetched data: ', data);
+        displayDirectoryData(data, sortParameter ? sortParameter : 'asc');
     })
     .catch(error => {
         console.error('Error fetching the directory data : ', error);
     });
 }
 
-function displayDirectoryData(data) {
+function displayDirectoryData(data, sortParameter) {
+    console.log("Sort = ", sortParameter);
     const mainShellElement = document.getElementById('directory-info');
     mainShellElement.innerHTML = '';
 
@@ -22,6 +36,16 @@ function displayDirectoryData(data) {
 
     const btnBackElement = document.createElement('button');
     btnBackElement.classList.add('btn-back');
+
+    btnBackElement.addEventListener('click', () => {
+        const urlParameters = new URLSearchParams(window.location.search);
+        const lastSlashIndex = urlParameters.get('root').lastIndexOf('/');
+        const parentPath = urlParameters.get('root').substring(0, lastSlashIndex);
+
+        const newUrl = `${window.location.pathname}?root=${parentPath ? parentPath : urlParameters.get('root')}&sort=${urlParameters.get('sort')}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+        fetchDirectoryData();
+    });
 
     const btnBackImg = document.createElement('img');
     btnBackImg.src = 'ui/leftarrow.png';
@@ -57,24 +81,37 @@ function displayDirectoryData(data) {
 
     rightSideElement.appendChild(loadtimeElement);
 
-    const btnSortElement = document.createElement('button');
-    btnSortElement.classList.add('btn-sort');
+    if (data.Status == 0) {
+        const btnSortElement = document.createElement('button');
+        btnSortElement.classList.add('btn-sort');
 
-    const btnSortTitleElement = document.createElement('p');
-    btnSortTitleElement.textContent = 'Sorting:';
+        btnSortElement.addEventListener('click', () => {
+        const urlParameters = new URLSearchParams(window.location.search);
+        let sortParam = urlParameters.get('sort');
 
-    btnSortElement.appendChild(btnSortTitleElement);
+        sortParam = sortParam === 'desc' ? 'asc' : 'desc';
 
-    const btnSortImgElement = document.createElement('img');
-    btnSortImgElement.src = 'ui/sortasc.png';
-    btnSortImgElement.alt = "asc";
-    btnSortImgElement.title = "Ascending";
-    btnSortImgElement.width = 20;
-    btnSortImgElement.height = 20;
-
-    btnSortElement.appendChild(btnSortImgElement);
-
-    rightSideElement.appendChild(btnSortElement);
+        const newUrl = `${window.location.pathname}?root=${urlParameters.get('root')}&sort=${sortParam}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+        fetchDirectoryData();
+    });
+    
+        const btnSortTitleElement = document.createElement('p');
+        btnSortTitleElement.textContent = 'Sorting:';
+    
+        btnSortElement.appendChild(btnSortTitleElement);
+    
+        const btnSortImgElement = document.createElement('img');
+        btnSortImgElement.src = sortParameter == 'asc' ? 'ui/sortasc.png' : 'ui/sortdesc.png';
+        btnSortImgElement.alt = sortParameter;
+        btnSortImgElement.title = sortParameter == 'asc' ? "Ascending" : "Descending";
+        btnSortImgElement.width = 20;
+        btnSortImgElement.height = 20;
+    
+        btnSortElement.appendChild(btnSortImgElement);
+    
+        rightSideElement.appendChild(btnSortElement);
+    }
 
     headerElement.appendChild(rightSideElement);
 
@@ -83,9 +120,38 @@ function displayDirectoryData(data) {
     const contentElement = document.createElement('div');
     contentElement.classList.add('content');
 
+    if (data.Status != 0) {
+        const errorElement = document.createElement('div');
+        errorElement.classList.add('error-message');
+        const errorIconElement = document.createElement('img');
+        errorIconElement.src = 'ui/error.png';
+        errorIconElement.alt = 'Error';
+        errorIconElement.title = data.ErrorMessage;
+        errorIconElement.width = 20;
+        errorIconElement.height = 20;
+        
+        errorElement.appendChild(errorIconElement);
+
+        const errorMessageElement = document.createElement('p');
+        errorMessageElement.textContent = data.ErrorMessage;
+
+        errorElement.appendChild(errorMessageElement);
+
+        contentElement.appendChild(errorElement);
+    }
+
     data.FilesList.forEach(file => {
         const filelineElement = document.createElement('div');
         filelineElement.classList.add('fileline');
+        if (file.FileType == 'Folder') {
+            filelineElement.addEventListener('click', () => {
+                const urlParameters = new URLSearchParams(window.location.search);
+        
+                const newUrl = `${window.location.pathname}?root=${urlParameters.get('root')}/${file.FileName}&sort=${urlParameters.get('sort')}`;
+                window.history.pushState({ path: newUrl }, '', newUrl);
+                fetchDirectoryData();
+            });
+        }
 
         const fileTypeElement = document.createElement('div');
         fileTypeElement.classList.add('file-type');
@@ -131,30 +197,6 @@ function displayDirectoryData(data) {
     footerElement.appendChild(footerTextElement);
 
     mainShellElement.appendChild(footerElement);
-
-
-
-
-
-
-
-
-
-    // const filesListElement = document.createElement('ul');
-    // data.FilesList.forEach(file => {
-    //     const fileElement = document.createElement('li');
-    //     fileElement.textContent = `${file.FileType} : ${file.FileName} (${file.FileSizeString})`;
-    //     filesListElement.appendChild(fileElement);
-    // });
-    // mainShellElement.appendChild(filesListElement);
-
-    // const statusElement = document.createElement('p');
-    // statusElement.textContent = `Status: ${data.Status}`;
-    // mainShellElement.appendChild(statusElement);
-
-    // const errorElement = document.createElement('p');
-    // errorElement.textContent = `Error Message: ${data.ErrorMessage}`;
-    // mainShellElement.appendChild(errorElement);
 }
 
 window.onload = fetchDirectoryData;
