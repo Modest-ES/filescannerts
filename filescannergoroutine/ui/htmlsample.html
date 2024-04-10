@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./logo.png">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com " />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap">
+    <title>File Scanner</title>
+</head>
+<body>
+    <div class="main-shell">
+        <header>
+            <div class="left-side">
+                <button class="btn-back">
+                    <img src="./leftarrow.png" width="20px" height="20px" alt="Back" title="Return to the previous directory"/>
+                </button>
+                <h2>Root: /home/artem/Documents/rbs-prac/filescannergoroutine/files</h2>
+            </div>
+            <div class="right-side">
+                <div class="loadtime">
+                    <p>Loadtime:</p>
+                    <p>274.377µs</p>
+                </div>
+                <button class="btn-sort">
+                    <p>Sorting:</p>
+                    <img src="./sortdesc.png" alt="desc" title="Descending"/>
+                </button>
+            </div>
+        </header>
+        <div class="content">
+            <div class="fileline">
+                <div class="file-type">
+                    <img src="./folder.png" width="20px" height="20px" alt="Folder" title="Folder" /> 
+                    <p>Folder</p>
+                </div>
+                <p class="file-name">covers</p>
+                <p class="file-size">2.18 MB</p>
+            </div>
+            <div class="fileline">
+                <div class="file-type">
+                    <img src="./folder.png" width="20px" height="20px" alt="Folder" title="Folder" /> 
+                    <p>Folder</p>
+                </div>
+                <p class="file-name">textfiles</p>
+                <p class="file-size">49.43 kB</p>
+            </div>
+            <div class="fileline">
+                <div class="file-type">
+                    <img src="./file.png" width="20px" height="20px" alt="File" title="File" /> 
+                    <p>File</p>
+                </div>
+                <p class="file-name">textfile.txt</p>
+                <p class="file-size">5.86 kB</p>
+            </div>
+            <div class="fileline">
+                <div class="file-type">
+                    <img src="./folder.png" width="20px" height="20px" alt="Folder" title="Folder" /> 
+                    <p>Folder</p>
+                </div>
+                <p class="file-name">newfolder11100000000000000000000000000000000000000000000000000000000000000000000000</p>
+                <p class="file-size">4.00 kB</p>
+            </div>
+            <div class="fileline">
+                <div class="file-type">
+                    <img src="./file.png" width="20px" height="20px" alt="File" title="File" /> 
+                    <p>File</p>
+                </div>
+                <p class="file-name">golang_logo.svg</p>
+                <p class="file-size">1.44 kB</p>
+            </div>
+        </div>
+        <footer>
+            <p>® Rainbowsoft 2024</p>
+        </footer>
+    </div>
+</body>
+</html>
