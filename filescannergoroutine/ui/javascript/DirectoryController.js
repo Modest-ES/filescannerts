@@ -6,10 +6,10 @@ export default class DirectoryController {
         this.model = new DirectoryModel();
         this.view = new DirectoryView();
 
-        this.view.bindSortButtonClick(this.handleSortButtonClick.bind(this));
-        this.view.bindRootPathChange(this.handleRootPathChange.bind(this));
+        // this.view.bindSortButtonClick(this.handleSortButtonClick.bind(this));
+        // this.view.bindRootPathChange(this.handleRootPathChange.bind(this));
 
-        this.handleRootPathChange(this.getRootPathFromUrl());
+        // this.handleRootPathChange(this.getRootPathFromUrl());
     }
 
     handleSortButtonClick(sortParameter) {

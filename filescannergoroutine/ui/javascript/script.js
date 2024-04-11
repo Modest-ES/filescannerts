@@ -46,9 +46,10 @@ function displayDirectoryData(data, sortParameter) {
 
     const btnBackElement = document.createElement('button');
     btnBackElement.classList.add('btn-back');
+    const urlParameters = new URLSearchParams(window.location.search);
+    urlParameters.get('root') == "/home" && btnBackElement.classList.add('blocked-btn');
 
     btnBackElement.addEventListener('click', () => {
-        const urlParameters = new URLSearchParams(window.location.search);
         const lastSlashIndex = urlParameters.get('root').lastIndexOf('/');
         const parentPath = urlParameters.get('root').substring(0, lastSlashIndex);
 
@@ -60,7 +61,7 @@ function displayDirectoryData(data, sortParameter) {
     const btnBackImg = document.createElement('img');
     btnBackImg.src = 'ui/img/leftarrow.png';
     btnBackImg.alt = 'Back';
-    btnBackImg.title = 'Return to the previous directory';
+    btnBackImg.title = urlParameters.get('root') == "/home" ? "/home is the main directory" : 'Return to the previous directory';
     btnBackElement.appendChild(btnBackImg);
     
     leftSideElement.appendChild(btnBackElement);

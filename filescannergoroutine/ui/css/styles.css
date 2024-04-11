@@ -10,6 +10,15 @@
     }
 }
 
+@keyframes load-animation-rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
 * {
     margin: 0;
     padding: 0;
@@ -46,32 +55,21 @@ p {
     color: white;
 }
 
-.main-shell {
-    width: 80%;
-    margin: 2vh 10%;
-    height: 96vh;
-    padding: 10px;
-    background: linear-gradient(-45deg, rgb(40, 40, 40), rgb(70, 70, 70));
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
 .load-animation,
 .load-animation div,
 .load-animation div:after {
   box-sizing: border-box;
 }
 .load-animation {
-  display: inline-block;
+  display: block;
   color: #2368ED;
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 2%;
+  left: 2%;
+  /* transform: translate(-50%, -50%); */
+  z-index: 0;
 }
 .load-animation div {
   animation: load-animation-rotate 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -144,13 +142,17 @@ p {
   left: 12.28719px;
 }
 
-@keyframes load-animation-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.main-shell {
+    z-index: 1;
+    width: 80%;
+    margin: 2vh 10%;
+    height: 96vh;
+    padding: 10px;
+    background: linear-gradient(-45deg, rgb(40, 40, 40), rgb(70, 70, 70));
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 header {
@@ -194,6 +196,18 @@ header {
 .btn-back:hover img {
     transform: scale(1.04);
     background: rgb(110, 110, 110);
+}
+
+.blocked-btn {
+    cursor:not-allowed;
+}
+
+.blocked-btn img {
+    background-color: rgba(251, 47, 47, 0.3);
+}
+
+.blocked-btn:hover img {
+    background: rgba(251, 47, 47, 0.5) !important;
 }
 
 h2 {

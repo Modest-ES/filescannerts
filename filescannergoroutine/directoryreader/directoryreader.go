@@ -47,6 +47,7 @@ func GetRootData(rootpath string) ([]File, error) {
 	}
 	var files []File
 	var wg sync.WaitGroup
+	var mu sync.Mutex
 
 	for _, fileEntry := range fileEntries {
 		path := filepath.Join(rootpath, fileEntry.Name())
@@ -63,6 +64,8 @@ func GetRootData(rootpath string) ([]File, error) {
 				if err != nil {
 					log.Fatal(err)
 				}
+				mu.Lock()
+				defer mu.Unlock()
 				files = append(files, File{FileName: fileInfo.Name(), FileSize: size, FileSizeString: fileSizeToString(size), FileType: "Folder"})
 			}(path)
 
