@@ -1,30 +1,48 @@
-import DirectoryModel from './DirectoryModel.js';
+//import DirectoryModel from './DirectoryModel.js';
 import DirectoryView from './DirectoryView.js';
 
 export default class DirectoryController {
-    constructor() {
-        this.model = new DirectoryModel();
-        this.view = new DirectoryView();
-
-        // this.view.bindSortButtonClick(this.handleSortButtonClick.bind(this));
-        // this.view.bindRootPathChange(this.handleRootPathChange.bind(this));
-
-        // this.handleRootPathChange(this.getRootPathFromUrl());
+    constructor(model) {
+        this.model = model;
+        this.view = new DirectoryView(this);
     }
 
-    handleSortButtonClick(sortParameter) {
-        const rootPath = this.getRootPathFromUrl();
-        this.model.fetchData(rootPath, sortParameter)
-            .then(data => this.view.displayData(data));
+    fetchDirectoryData() {
+        this.view.displayLoadElement();
+        this.model.verifyUrlParameters();
+        this.model.fetchData(this.model.constructUrl())
+            .then(() => {
+                this.view.displayDirectoryData(this.model.data, this.model.getSortParameter());
+            });
+        this.view.hideLoadElement();
     }
 
-    handleRootPathChange(rootPath) {
-        this.model.fetchData(rootPath, 'asc')
-            .then(data => this.view.displayData(data));
+    onBtnBackClicked() {
+        const urlParameters = new URLSearchParams(window.location.search);
+        const lastSlashIndex = urlParameters.get('root').lastIndexOf('/');
+        const parentPath = urlParameters.get('root').substring(0, lastSlashIndex);
+
+        const newUrl = `${window.location.pathname}?root=${parentPath ? parentPath : urlParameters.get('root')}&sort=${urlParameters.get('sort')}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+        this.fetchDirectoryData();
     }
 
-    getRootPathFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('root');
+    onBtnSortClicked() {
+        const urlParameters = new URLSearchParams(window.location.search);
+        let sortParam = urlParameters.get('sort');
+
+        sortParam = sortParam === 'desc' ? 'asc' : 'desc';
+
+        const newUrl = `${window.location.pathname}?root=${urlParameters.get('root')}&sort=${sortParam}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+        this.fetchDirectoryData();
+    }
+
+    onFilelineClicked(file) {
+        const urlParameters = new URLSearchParams(window.location.search);
+            
+        const newUrl = `${window.location.pathname}?root=${urlParameters.get('root')}/${file.FileName}&sort=${urlParameters.get('sort')}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+        this.fetchDirectoryData();
     }
 }

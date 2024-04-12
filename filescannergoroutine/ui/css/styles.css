@@ -10,6 +10,27 @@
     }
 }
 
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes shining {
+	0% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
 @keyframes load-animation-rotate {
     0% {
       transform: rotate(0deg);
@@ -33,7 +54,11 @@ html {
 }
 
 body {
-    background: linear-gradient(-45deg, rgb(20, 20, 20), rgb(50, 50, 50));
+    background: linear-gradient(45deg, rgb(35, 104, 237), rgb(20, 20, 20) 19%, rgb(35, 35, 35) 50%, rgb(20, 20, 20) 79%, rgb(35, 104, 237));
+    background-attachment: fixed;
+    background-size: 400% 400%;
+    animation: gradient 35s ease infinite;
+    height: 100vh;
     padding: 0;
     margin: 0;
     height: 100%;
@@ -62,7 +87,7 @@ p {
 }
 .load-animation {
   display: block;
-  color: #2368ED;
+  color: rgb(35, 104, 237);
   width: 40px;
   height: 40px;
   position: fixed;
@@ -142,6 +167,10 @@ p {
   left: 12.28719px;
 }
 
+.display-none {
+    display: none !important;
+}
+
 .main-shell {
     z-index: 1;
     width: 80%;
@@ -200,6 +229,7 @@ header {
 
 .blocked-btn {
     cursor:not-allowed;
+    pointer-events: none;
 }
 
 .blocked-btn img {
@@ -288,7 +318,11 @@ h2 {
 
 .fileline:hover {
     transform: scale(1.01);
-    animation: hover-over 3s infinite;
+    /* animation: hover-over 3s infinite; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    background: linear-gradient(45deg, rgb(100, 100, 100) 0%, rgb(100, 100, 100) 47%, rgb(155, 155, 155) 50%, rgb(100, 100, 100) 53%, rgb(100, 100, 100) 100%);
+    background-size: 500% 500%;
+    animation: shining 3s ease infinite;
 }
 
 .file-type {
