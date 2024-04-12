@@ -54,8 +54,8 @@ html {
 }
 
 body {
-    background: rgb(20, 20, 20);
-    /* background: linear-gradient(45deg, rgb(35, 104, 237), rgb(20, 20, 20) 19%, rgb(35, 35, 35) 50%, rgb(20, 20, 20) 79%, rgb(35, 104, 237)); */
+    /* background: rgb(20, 20, 20); */
+    background: linear-gradient(45deg, rgb(35, 104, 237), rgb(20, 20, 20) 19%, rgb(35, 35, 35) 50%, rgb(20, 20, 20) 79%, rgb(35, 104, 237));
     background-attachment: fixed;
     background-size: 400% 400%;
     animation: gradient 35s ease infinite;
