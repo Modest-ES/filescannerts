@@ -1,21 +1,26 @@
+// View обрабатывает функционал интерфейса пользователя
 export default class DirectoryView {
+    // constructor инициализирует экземпляр класса DirectoryView
     constructor(controller) {
         this.mainShellElement = document.getElementById('directory-info');
         this.controller = controller;
     }
 
+    // displayLoadElement отображает HTML-элемент с анимацией загрузки
     displayLoadElement() {
-        // const loadElement = document.getElementById('load-animation');
-        // loadElement.style.opacity = 1;
-        // console.log("DISPLAY", loadElement);
+        const loadElement = document.getElementById('load-animation');
+        loadElement.style.opacity = 1;
+        console.log("DISPLAY", loadElement);
     }
 
+    // hideLoadElement скрывает HTML-элемент с анимацией загрузки
     hideLoadElement() {
-        // const loadElement = document.getElementById('load-animation');
-        // loadElement.style.opacity = 0;
-        // console.log("HIDE", loadElement);
+        const loadElement = document.getElementById('load-animation');
+        loadElement.style.opacity = 0;
+        console.log("HIDE", loadElement);
     }
 
+    // displayDirectoryData отображает на странице header, основную часть и footer
     displayDirectoryData(data, sortParameter) {
         this.mainShellElement.innerHTML = '';
         
@@ -29,6 +34,7 @@ export default class DirectoryView {
         this.mainShellElement.appendChild(footerElement);
     }
 
+    // createHeaderElement отображает левую и правую части header-элемента
     createHeaderElement(data, sortParameter) {
         const headerElement = document.createElement('header');
 
@@ -41,6 +47,7 @@ export default class DirectoryView {
         return headerElement;
     }
 
+    // createLeftSideElement отображает кнопку возвращения на предыдущую директорию и адрес текущей директории
     createLeftSideElement(data) {
         const leftSideElement = document.createElement('div');
         leftSideElement.classList.add('left-side');
@@ -69,6 +76,7 @@ export default class DirectoryView {
         return leftSideElement;
     }
 
+    // createRightSideElement отображает время загрузки данных на странице и кнопку изменения направления сортировки
     createRightSideElement(data, sortParameter) {
         const rightSideElement = document.createElement('div');
         rightSideElement.classList.add('right-side');
@@ -111,6 +119,24 @@ export default class DirectoryView {
         return rightSideElement;
     }
 
+    // createContentElement отображает элемент с сообщением об ошибке при ее наличии, либо список строк с данными о файлах
+    createContentElement(data) {
+        const contentElement = document.createElement('div');
+        contentElement.classList.add('content');
+
+        if (data.Status != 0) {
+            const errorElement = this.createErrorElement(data);
+            contentElement.appendChild(errorElement);
+        }
+
+        data.FilesList.forEach(file => {
+            const filelineElement = this.createFilelineElement(file);
+            contentElement.appendChild(filelineElement);
+        })
+        return contentElement;
+    }
+
+    // createErrorElement отображает сообщение об ошибке
     createErrorElement(data) {
         const errorElement = document.createElement('div');
         errorElement.classList.add('error-message');
@@ -129,63 +155,49 @@ export default class DirectoryView {
         return errorElement;
     }
 
+    // createFilelineElement отображает строку с данными о файле
     createFilelineElement(file) {
         const filelineElement = document.createElement('div');
-            filelineElement.classList.add('fileline');
-            if (file.FileType == 'Folder') {
-                filelineElement.addEventListener('click', () => this.controller.onFilelineClicked(file));
-            }
-
-            const fileTypeElement = document.createElement('div');
-            fileTypeElement.classList.add('file-type');
-            
-            const fileTypeImgElement = document.createElement('img');
-            fileTypeImgElement.src = file.FileType == 'Folder' ? 'ui/img/folder.png' : 'ui/img/file.png';
-            fileTypeImgElement.alt = file.FileType;
-            fileTypeImgElement.title = file.FileType;
-            fileTypeImgElement.width = 20;
-            fileTypeImgElement.height = 20;
-
-            fileTypeElement.appendChild(fileTypeImgElement);
-
-            const fileTypeTitleElement = document.createElement('p');
-            fileTypeTitleElement.textContent = file.FileType;
-
-            fileTypeElement.appendChild(fileTypeTitleElement);
-
-            filelineElement.appendChild(fileTypeElement);
-
-            const fileNameElement = document.createElement('p');
-            fileNameElement.classList.add('file-name');
-            fileNameElement.textContent = file.FileName;
-
-            filelineElement.appendChild(fileNameElement);
-
-            const fileSizeElement = document.createElement('p');
-            fileSizeElement.classList.add('file-size');
-            fileSizeElement.textContent = file.FileSizeString;
-
-            filelineElement.appendChild(fileSizeElement);
-
-            return filelineElement;
-    }
-
-    createContentElement(data) {
-        const contentElement = document.createElement('div');
-        contentElement.classList.add('content');
-
-        if (data.Status != 0) {
-            const errorElement = this.createErrorElement(data);
-            contentElement.appendChild(errorElement);
+        filelineElement.classList.add('fileline');
+        if (file.FileType == 'Folder') {
+            filelineElement.addEventListener('click', () => this.controller.onFilelineClicked(file));
         }
 
-        data.FilesList.forEach(file => {
-            const filelineElement = this.createFilelineElement(file);
-            contentElement.appendChild(filelineElement);
-        })
-        return contentElement;
+        const fileTypeElement = document.createElement('div');
+        fileTypeElement.classList.add('file-type');
+        
+        const fileTypeImgElement = document.createElement('img');
+        fileTypeImgElement.src = file.FileType == 'Folder' ? 'ui/img/folder.png' : 'ui/img/file.png';
+        fileTypeImgElement.alt = file.FileType;
+        fileTypeImgElement.title = file.FileType;
+        fileTypeImgElement.width = 20;
+        fileTypeImgElement.height = 20;
+
+        fileTypeElement.appendChild(fileTypeImgElement);
+
+        const fileTypeTitleElement = document.createElement('p');
+        fileTypeTitleElement.textContent = file.FileType;
+
+        fileTypeElement.appendChild(fileTypeTitleElement);
+
+        filelineElement.appendChild(fileTypeElement);
+
+        const fileNameElement = document.createElement('p');
+        fileNameElement.classList.add('file-name');
+        fileNameElement.textContent = file.FileName;
+
+        filelineElement.appendChild(fileNameElement);
+
+        const fileSizeElement = document.createElement('p');
+        fileSizeElement.classList.add('file-size');
+        fileSizeElement.textContent = file.FileSizeString;
+
+        filelineElement.appendChild(fileSizeElement);
+
+        return filelineElement;
     }
 
+    // createFooterElement отображает footer на странице
     createFooterElement() {
         const footerElement = document.createElement('footer');
         

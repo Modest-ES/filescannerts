@@ -1,13 +1,15 @@
-//import DirectoryModel from './DirectoryModel.js';
+// Controller реализует взаимодействие компонентов Model и View
 import DirectoryView from './DirectoryView.js';
 
 export default class DirectoryController {
+    // constructor инициализирует экземпляр класса DirectoryController
     constructor(model) {
         this.model = model;
         this.view = new DirectoryView(this);
     }
 
-    fetchDirectoryData() {
+    // loadDirectoryData вызывает функции верификации параметров URL, считывания данных по этому URL и отображения считанных данных на HTML странице, отображая на время их выполнения анимации загрузки
+    loadDirectoryData() {
         this.view.displayLoadElement();
         this.model.verifyUrlParameters();
         this.model.fetchData(this.model.constructUrl())
@@ -17,6 +19,7 @@ export default class DirectoryController {
         this.view.hideLoadElement();
     }
 
+    // onBtnBackClicked меняет адрес директории в URL на адрес уровнем выше и отображает файлы директории по новому адресу
     onBtnBackClicked() {
         const urlParameters = new URLSearchParams(window.location.search);
         const lastSlashIndex = urlParameters.get('root').lastIndexOf('/');
@@ -24,9 +27,10 @@ export default class DirectoryController {
 
         const newUrl = `${window.location.pathname}?root=${parentPath ? parentPath : urlParameters.get('root')}&sort=${urlParameters.get('sort')}`;
         window.history.pushState({ path: newUrl }, '', newUrl);
-        this.fetchDirectoryData();
+        this.loadDirectoryData();
     }
 
+    // onBtnSortClicked меняет значение параметра sort в URL и отображает файлы директории в обратном порядке
     onBtnSortClicked() {
         const urlParameters = new URLSearchParams(window.location.search);
         let sortParam = urlParameters.get('sort');
@@ -35,14 +39,15 @@ export default class DirectoryController {
 
         const newUrl = `${window.location.pathname}?root=${urlParameters.get('root')}&sort=${sortParam}`;
         window.history.pushState({ path: newUrl }, '', newUrl);
-        this.fetchDirectoryData();
+        this.loadDirectoryData();
     }
 
+    // onFilelineClicked меняет адрес директории в URL на адрес уровнем ниже с именем нажатой директории и отображает файлы директории по новому адресу
     onFilelineClicked(file) {
         const urlParameters = new URLSearchParams(window.location.search);
             
         const newUrl = `${window.location.pathname}?root=${urlParameters.get('root')}/${file.FileName}&sort=${urlParameters.get('sort')}`;
         window.history.pushState({ path: newUrl }, '', newUrl);
-        this.fetchDirectoryData();
+        this.loadDirectoryData();
     }
 }

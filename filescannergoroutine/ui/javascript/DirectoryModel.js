@@ -1,14 +1,13 @@
+// Model обрабатывает внутреннюю логику и алгоритмы взаимодействия с данными
 export default class DirectoryModel {
+    // constructor инициализирует экземпляр класса DirectoryModel
     constructor() {
         this.data = null;
     }
 
+    // verifyUrlParameters проверяет наличие значений параметров sort и root в URL и при их отсутствии указывает им стандартные значения: для root указывается /home, для sort указывается asc
     verifyUrlParameters() {
         const urlParameters = new URLSearchParams(window.location.search);
-
-        const loadElement = document.getElementById('load-animation');
-        loadElement.style.opacity = 1;
-        console.log("DISPLAY", loadElement);
         
         if (!urlParameters.has('sort')) {
             const newUrl = new URL(window.location.href);
@@ -22,11 +21,13 @@ export default class DirectoryModel {
         }
     }
 
+    // getSortParameter возвращает текущее значение параметра sort в URL
     getSortParameter() {
         const urlParameters = new URLSearchParams(window.location.search);
         return urlParameters.get('sort');
     }
 
+    // constructUrl создает строку URL с указанием значений параметров sort, root
     constructUrl() {
         const urlParameters = new URLSearchParams(window.location.search);
         const sortParameter = urlParameters.get('sort');
@@ -45,15 +46,12 @@ export default class DirectoryModel {
         return url;
     }
 
+    // fetchData считывает данные по указанному URL и обновляет поле data считанными данными
     async fetchData(url) {
         try {
             const response = await fetch(url);
             const data = await response.json();
             this.data = data;
-
-            const loadElement = document.getElementById('load-animation');
-            loadElement.style.opacity = 0;
-            console.log("HIDE", loadElement);
 
         } catch (error) {
             console.error('Error fetching the directory data : ', error);
