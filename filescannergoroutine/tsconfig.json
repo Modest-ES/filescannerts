@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "outDir": "./ui/typescript",
+      "sourceMap": true,
+      "strict": true,
+      "module": "ES6",
+      "noEmit": false,
+      "target": "ES6"
+    },
+    "include": ["ui/**/*.ts"],
+    "exclude": ["node_modules"]
+  }

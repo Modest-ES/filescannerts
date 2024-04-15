@@ -136,12 +136,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	mux := http.NewServeMux()
 	staticFilesFolder := http.Dir("./ui")
 	staticFilesServer := http.FileServer(staticFilesFolder)
-	http.Handle("/ui/", http.StripPrefix("/ui/", staticFilesServer))
+	mux.Handle("/ui/", http.StripPrefix("/ui/", staticFilesServer))
 
-	http.HandleFunc("/files", handleJsonDataRequest)
-	http.HandleFunc("/", handleFrontendDataRequest)
+	mux.HandleFunc("/files", handleJsonDataRequest)
+	mux.HandleFunc("/", handleFrontendDataRequest)
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
@@ -158,5 +159,5 @@ func main() {
 	}()
 
 	log.Printf("Starting a server on port %d", config.Port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), mux))
 }
