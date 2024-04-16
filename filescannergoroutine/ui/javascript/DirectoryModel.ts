@@ -1,3 +1,5 @@
+import "../css/styles.css";
+
 // Model обрабатывает внутреннюю логику и алгоритмы взаимодействия с данными
 export default class DirectoryModel {
     data: any;
@@ -10,7 +12,10 @@ export default class DirectoryModel {
     // verifyUrlParameters проверяет наличие значений параметров sort и root в URL и при их отсутствии указывает им стандартные значения: для root указывается /home, для sort указывается asc
     verifyUrlParameters(): void {
         const urlParameters = new URLSearchParams(window.location.search);
-        
+        const loadElement = document.getElementById('load-animation');
+            if (loadElement) {
+                loadElement.style.opacity = '1';
+            }
         if (!urlParameters.has('sort')) {
             const newUrl = new URL(window.location.href);
             newUrl.searchParams.set('sort', 'asc');
@@ -57,7 +62,10 @@ export default class DirectoryModel {
             const response = await fetch(url);
             const data = await response.json();
             this.data = data;
-            console.log(data);
+            const loadElement = document.getElementById('load-animation');
+            if (loadElement) {
+                loadElement.style.opacity = '0';
+            }
         } catch (error) {
             console.error('Error fetching the directory data : ', error);
         }

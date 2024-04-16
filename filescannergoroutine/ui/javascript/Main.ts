@@ -1,3 +1,5 @@
+import "../css/styles.css";
+
 import DirectoryModel from './DirectoryModel';
 import DirectoryController from './DirectoryController';
 

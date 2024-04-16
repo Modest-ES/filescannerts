@@ -1,3 +1,5 @@
+import "../css/styles.css";
+
 // Controller реализует взаимодействие компонентов Model и View
 import DirectoryView from './DirectoryView';
 import DirectoryModel from './DirectoryModel';

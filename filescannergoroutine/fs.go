@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"directoryreader/directoryreader"
 	"encoding/json"
 	"fmt"
@@ -144,6 +145,9 @@ func main() {
 	mux.HandleFunc("/files", handleJsonDataRequest)
 	mux.HandleFunc("/", handleFrontendDataRequest)
 
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
@@ -151,13 +155,33 @@ func main() {
 		switch sig {
 		case syscall.SIGINT:
 			fmt.Println("Signal Interrupt (SIGINT) encountered. Shutting down")
-			os.Exit(0)
+			cancel()
 		case syscall.SIGTERM:
 			fmt.Println("Signal Terminate (SIGTERM) encountered. Shutting down")
-			os.Exit(0)
+			cancel()
 		}
 	}()
 
-	log.Printf("Starting a server on port %d", config.Port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Port), mux))
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%d", config.Port),
+		Handler: mux,
+	}
+
+	go func() {
+		log.Printf("Starting a server on port %d", config.Port)
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("Server failed to start: %v", err)
+		}
+	}()
+
+	<-ctx.Done()
+
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer shutdownCancel()
+
+	if err := server.Shutdown(shutdownCtx); err != nil {
+		log.Fatalf("Server shutdown failed: %v", err)
+	}
+
+	log.Println("Server shutdown complete")
 }

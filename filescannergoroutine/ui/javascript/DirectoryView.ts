@@ -1,3 +1,5 @@
+import "../css/styles.css";
+
 import DirectoryController from "./DirectoryController";
 
 // View обрабатывает функционал интерфейса пользователя
@@ -13,20 +15,20 @@ export default class DirectoryView {
 
     // displayLoadElement отображает HTML-элемент с анимацией загрузки
     displayLoadElement(): void {
-        const loadElement = document.getElementById('load-animation');
-        if (loadElement) {
-            loadElement.style.opacity = '1';
-            console.log("DISPLAY", loadElement);
-        }
+        // const loadElement = document.getElementById('load-animation');
+        // if (loadElement) {
+        //     loadElement.style.opacity = '1';
+        //     console.log("DISPLAY", loadElement);
+        // }
     }
 
     // hideLoadElement скрывает HTML-элемент с анимацией загрузки
     hideLoadElement(): void {
-        const loadElement = document.getElementById('load-animation');
-        if (loadElement) {
-            loadElement.style.opacity = '0';
-            console.log("HIDE", loadElement);
-        }
+        // const loadElement = document.getElementById('load-animation');
+        // if (loadElement) {
+        //     loadElement.style.opacity = '0';
+        //     console.log("HIDE", loadElement);
+        // }
     }
 
     // displayDirectoryData отображает на странице header, основную часть и footer
