@@ -51,7 +51,7 @@ export default class DirectoryView {
     createHeaderElement(data: any, sortParameter: string): HTMLElement {
         const headerElement = document.createElement('header');
 
-        const leftSideElement = this.createLeftSideElement(data);
+        const leftSideElement = this.createLeftSideElement(data, sortParameter);
         headerElement.appendChild(leftSideElement);
         
         const rightSideElement = this.createRightSideElement(data, sortParameter);
@@ -61,7 +61,7 @@ export default class DirectoryView {
     }
 
     // createLeftSideElement отображает кнопку возвращения на предыдущую директорию и адрес текущей директории
-    createLeftSideElement(data: any): HTMLElement {
+    createLeftSideElement(data: any, sortParameter: string): HTMLElement {
         const leftSideElement = document.createElement('div');
         leftSideElement.classList.add('left-side');
 
@@ -81,6 +81,21 @@ export default class DirectoryView {
         
         leftSideElement.appendChild(btnBackElement);
 
+        const buttonLinkElement = document.createElement('a');
+        buttonLinkElement.classList.add('btn-stats');
+        buttonLinkElement.href = `http://localhost:80/uistats.php?root=${data.RootPath}&sort=${sortParameter}`;
+        const btnStatsElement = document.createElement('button');
+        btnStatsElement.classList.add('btn-back');
+
+        const btnStatsImg = document.createElement('img');
+        btnStatsImg.src = 'ui/img/stats.png';
+        btnStatsImg.alt = 'Stats';
+        btnStatsImg.title = 'Посмотреть статистику';
+        btnStatsElement.appendChild(btnStatsImg);
+        
+        buttonLinkElement.appendChild(btnStatsElement);
+        leftSideElement.appendChild(buttonLinkElement);
+
         const rootpathElement = document.createElement('h2');
         rootpathElement.textContent = `Root: ${data.RootPath}`;
         
@@ -90,7 +105,7 @@ export default class DirectoryView {
     }
 
     // createRightSideElement отображает время загрузки данных на странице и кнопку изменения направления сортировки
-    createRightSideElement(data: any, sortParameter: string, rootParameter: string): HTMLElement {
+    createRightSideElement(data: any, sortParameter: string): HTMLElement {
         const rightSideElement = document.createElement('div');
         rightSideElement.classList.add('right-side');
 
@@ -128,20 +143,6 @@ export default class DirectoryView {
         
             rightSideElement.appendChild(btnSortElement);
         }
-
-        const buttonLinkElement = document.createElement('a');
-        buttonLinkElement.href = `http://localhost:80/uistats.php?root=${rootParameter}&sort=${sortParameter}`;
-        const btnStatsElement = document.createElement('button');
-        btnStatsElement.classList.add('btn-back');
-
-        const btnStatsImg = document.createElement('img');
-        btnStatsImg.src = 'ui/img/stats.png';
-        btnStatsImg.alt = 'Stats';
-        btnStatsImg.title = 'Посмотреть статистику';
-        btnStatsElement.appendChild(btnStatsImg);
-        
-        buttonLinkElement.appendChild(btnStatsElement);
-        rightSideElement.appendChild(buttonLinkElement);
 
         return rightSideElement;
     }

@@ -43,26 +43,37 @@
         echo "<h2>Статистика для директории : " . $rootval . "</h2>";
         echo "</div>";
         echo "</header>";
-        // echo "<ul>";
-        // echo "<li>" . $rootval . "</li>";
-        // echo "<li>" . $sortval . "</li>";
-        // echo "</ul>";
 
-        $jsonUrl = 'http://localhost:9015/files?root=' . $rootval . '&sort=' . $sortval;
+        // $jsonUrl = 'http://localhost:9015/files?root=' . $rootval . '&sort=' . $sortval;
 
-        $jsonData = file_get_contents($jsonUrl);
+        // $jsonData = file_get_contents($jsonUrl);
 
-        if ($jsonData === false) {
-            die('Error: Could not fetch the JSON data.');
+        // if ($jsonData === false) {
+        //     die('Error: Could not fetch the JSON data.');
+        // }
+
+        // $dataArray = json_decode($jsonData, true);
+
+        // if ($dataArray === null) {
+        //     die('Error: Could not decode the JSON data.');
+        // }
+
+        // print_r($dataArray);
+
+        echo "<div class='content'>";
+        $DBconnect = mysqli_connect("localhost","mainUser","passwordmain","mainDB");
+        $result = mysqli_query($DBconnect,"SELECT * FROM fileStats");
+        while($row = mysqli_fetch_array($result)) {
+            echo "<div class='statline'>";
+            echo "<p class='c-id'>" . $row['c_id'] . "</p>";
+            echo "<p class='c-path'>" . $row['c_path'] . "</p>";
+            echo "<p class='c-size'>" . $row['c_size'] . "</p>";
+            echo "<p class='c-elapsed-time'>" . $row['c_elapsed_time'] . "</p>";
+            echo "<p class='c-date'>" . $row['c_date'] . "</p>";
+            echo "</div>";
         }
-
-        $dataArray = json_decode($jsonData, true);
-
-        if ($dataArray === null) {
-            die('Error: Could not decode the JSON data.');
-        }
-
-        print_r($dataArray);
+        mysqli_close($DBconnect);
+        echo "</div>";
         ?>
     </div>
 </body>

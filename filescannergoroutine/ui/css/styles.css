@@ -208,7 +208,7 @@ header {
 }
 
 .btn-back {
-    margin-right: 10px;
+    margin-right: 6px;
     color: white;
     transition: 0.2s;
 }
@@ -278,6 +278,12 @@ h2 {
     background: rgb(110, 110, 110);
 }
 
+.btn-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .content {
     display: flex;
     flex-direction: column;
@@ -313,7 +319,7 @@ h2 {
     background: rgba(254, 185, 22, 0.3);
 }
 
-.fileline {
+.fileline, .statline {
     background: rgb(80, 80, 80);
     margin-bottom: 10px;
     padding: 5px;
@@ -325,9 +331,8 @@ h2 {
     cursor: pointer;
 }
 
-.fileline:hover {
+.fileline:hover, .statline:hover {
     transform: scale(1.01);
-    /* animation: hover-over 3s infinite; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     background: linear-gradient(45deg, rgb(100, 100, 100) 0%, rgb(100, 100, 100) 47%, rgb(155, 155, 155) 50%, rgb(100, 100, 100) 53%, rgb(100, 100, 100) 100%);
     background-size: 500% 500%;
@@ -352,6 +357,31 @@ h2 {
 .file-name {
     width: 70%;
     word-break: break-all;
+}
+
+.c-id {
+    width: 3%;
+    padding-left: 5px;
+}
+
+.c-path, .c-size, .c-elapsed-time, .c-date {
+    word-break: break-all;
+}
+
+.c-path {
+    width: 53%;
+}
+
+.c-size {
+    width: 9%;
+}
+
+.c-elapsed-time {
+    width: 11%;
+}
+
+.c-date {
+    width: 20%;
 }
 
 footer {
