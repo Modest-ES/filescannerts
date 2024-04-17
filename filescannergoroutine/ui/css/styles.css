@@ -395,6 +395,12 @@ footer {
     }
 }
 
+@media (max-width: 900px) {
+    .c-id, .c-path, .c-size, .c-elapsed-time, .c-date {
+        font-size: 12px;
+    }
+}
+
 @media (max-width: 560px) {
     header p, header h2, .file-name, .file-size, .file-type p {
         font-size: 12px;
@@ -406,6 +412,17 @@ footer {
 
     .file-name {
         width: 64%;
+    }
+}
+
+@media (max-width: 430px) {
+    .statline {
+        flex-direction: column;
+    }
+    .c-id, .c-path, .c-size, .c-elapsed-time, .c-date {
+        width: 98%;
+        display: flex;
+        justify-content: center;
     }
 }
 
