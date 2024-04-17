@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"directoryreader/directoryreader"
 	"encoding/json"
@@ -121,7 +122,45 @@ func handleJsonDataRequest(respWriter http.ResponseWriter, request *http.Request
 		Status:       0,
 		ErrorMessage: "",
 	}
+
+	jsonData, err := json.Marshal(fileScannerData)
+	if err != nil {
+		http.Error(respWriter, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Send the POST request to localhost:80/receive.php
+	go sendPostRequest(jsonData)
+
 	writeJsonData(fileScannerData, respWriter)
+}
+
+func sendPostRequest(jsonData []byte) {
+	log.Println(jsonData)
+	// Create a new POST request
+	url := "http://localhost:80/dbadd.php"
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+	if err != nil {
+		log.Printf("Error creating POST request: %v", err)
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	// Send the request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Printf("Error sending POST request: %v", err)
+		return
+	}
+	defer resp.Body.Close()
+
+	// Check the response
+	if resp.StatusCode == http.StatusOK {
+		log.Println("POST request sent successfully")
+	} else {
+		log.Printf("POST request failed with status: %s\n", resp.Status)
+	}
 }
 
 // handleFrontendDataRequest

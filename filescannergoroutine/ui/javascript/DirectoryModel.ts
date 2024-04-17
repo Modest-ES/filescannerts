@@ -58,7 +58,6 @@ export default class DirectoryModel {
 
     // fetchData считывает данные по указанному URL и обновляет поле data считанными данными
     async fetchData(url: string): Promise<void> {
-        console.log("URL : ", url);
         try {
             const response = await fetch(url);
             const data = await response.json();

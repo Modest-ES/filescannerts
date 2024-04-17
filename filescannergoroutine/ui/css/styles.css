@@ -1,15 +1,3 @@
-@keyframes hover-over {
-    0% {
-        background: rgb(80, 80, 80);
-    }
-    50% {
-        background: rgb(110, 110, 110);
-    }
-    100% {
-        background: rgb(80, 80, 80);
-    }
-}
-
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
@@ -319,7 +307,7 @@ h2 {
     background: rgba(254, 185, 22, 0.3);
 }
 
-.fileline, .statline {
+.fileline {
     background: rgb(80, 80, 80);
     margin-bottom: 10px;
     padding: 5px;
@@ -331,7 +319,7 @@ h2 {
     cursor: pointer;
 }
 
-.fileline:hover, .statline:hover {
+.fileline:hover {
     transform: scale(1.01);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     background: linear-gradient(45deg, rgb(100, 100, 100) 0%, rgb(100, 100, 100) 47%, rgb(155, 155, 155) 50%, rgb(100, 100, 100) 53%, rgb(100, 100, 100) 100%);
@@ -359,31 +347,6 @@ h2 {
     word-break: break-all;
 }
 
-.c-id {
-    width: 3%;
-    padding-left: 5px;
-}
-
-.c-path, .c-size, .c-elapsed-time, .c-date {
-    word-break: break-all;
-}
-
-.c-path {
-    width: 53%;
-}
-
-.c-size {
-    width: 9%;
-}
-
-.c-elapsed-time {
-    width: 11%;
-}
-
-.c-date {
-    width: 20%;
-}
-
 footer {
     margin-top: 5px;
 }
@@ -392,12 +355,6 @@ footer {
     .main-shell {
         width: 94%;
         margin-left: 3%;
-    }
-}
-
-@media (max-width: 900px) {
-    .c-id, .c-path, .c-size, .c-elapsed-time, .c-date {
-        font-size: 12px;
     }
 }
 
@@ -412,17 +369,6 @@ footer {
 
     .file-name {
         width: 64%;
-    }
-}
-
-@media (max-width: 430px) {
-    .statline {
-        flex-direction: column;
-    }
-    .c-id, .c-path, .c-size, .c-elapsed-time, .c-date {
-        width: 98%;
-        display: flex;
-        justify-content: center;
     }
 }
 

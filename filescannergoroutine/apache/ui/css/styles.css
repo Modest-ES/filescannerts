@@ -1,0 +1,256 @@
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes shining {
+	0% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    outline: none;
+    font-family: 'Montserrat', 'Roboto', system-ui, sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: rgb(20, 20, 20);
+    /* background: linear-gradient(45deg, rgb(35, 104, 237), rgb(20, 20, 20) 19%, rgb(35, 35, 35) 50%, rgb(20, 20, 20) 79%, rgb(35, 104, 237)); */
+    background-attachment: fixed;
+    background-size: 400% 400%;
+    animation: gradient 35s ease infinite;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+button {
+    background: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-size: 14px;
+    font-family: 'Montserrat';
+    color: white;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.main-shell {
+    z-index: 1;
+    width: 80%;
+    margin: 2vh 10%;
+    height: 96vh;
+    padding: 10px;
+    background: linear-gradient(-45deg, rgb(40, 40, 40), rgb(70, 70, 70));
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px;
+    margin-bottom: 15px;
+}
+
+.left-side {
+    display: flex;
+    align-items: center;
+}
+
+.left-side {
+    justify-content: flex-start;
+    margin-right: 10px;
+}
+
+.btn-close {
+    margin-right: 6px;
+    color: white;
+    transition: 0.2s;
+}
+
+.btn-close img {
+    background-color: rgb(85, 85, 85);
+    border-radius: 100%;
+    transition: 0.2s;
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    box-sizing: content-box;
+}
+
+.btn-close:hover img {
+    transform: scale(1.04);
+    background: rgb(110, 110, 110);
+}
+
+h2 {
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: white;
+    word-break: break-all;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 1%;
+}
+
+.error-message {
+    background: rgba(251, 47, 47, 0.3);
+}
+
+.error-message, .null-element {
+    border-radius: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.error-message img, .null-element img {
+    width: 20px;
+    height: 20px;
+}
+
+.error-message p, .null-element p {
+    font-family: 'Montserrat';
+    font-size: 12px;
+    word-break: break-all;
+    margin-left: 5px;
+}
+
+.null-element {
+    background: rgba(254, 185, 22, 0.3);
+}
+
+.statline {
+    background: rgb(80, 80, 80);
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.statline:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    background: linear-gradient(45deg, rgb(100, 100, 100) 0%, rgb(100, 100, 100) 47%, rgb(155, 155, 155) 50%, rgb(100, 100, 100) 53%, rgb(100, 100, 100) 100%);
+    background-size: 500% 500%;
+    animation: shining 3s ease infinite;
+}
+
+.c-id {
+    width: 3%;
+    padding-left: 5px;
+}
+
+.c-path, .c-size, .c-elapsed-time, .c-date {
+    word-break: break-all;
+}
+
+.c-path {
+    width: 53%;
+}
+
+.c-size {
+    width: 9%;
+}
+
+.c-elapsed-time {
+    width: 11%;
+}
+
+.c-date {
+    width: 20%;
+}
+
+footer {
+    margin-top: 5px;
+}
+
+@media (max-width: 1000px) {
+    .main-shell {
+        width: 94%;
+        margin-left: 3%;
+    }
+}
+
+@media (max-width: 900px) {
+    .c-id, .c-path, .c-size, .c-elapsed-time, .c-date {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 560px) {
+    header h2 {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 430px) {
+    .statline {
+        flex-direction: column;
+    }
+    .c-id, .c-path, .c-size, .c-elapsed-time, .c-date {
+        width: 98%;
+        display: flex;
+        justify-content: center;
+    }
+    .btn-close img {
+        padding: 5px;
+    }
+
+    .btn-close img {
+        margin-left: 0;
+    }
+
+    .btn-close img {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media (max-width: 300px) {
+    header h2 {
+        font-size: 10px;
+    } 
+}
