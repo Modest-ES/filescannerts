@@ -90,7 +90,7 @@ export default class DirectoryView {
     }
 
     // createRightSideElement отображает время загрузки данных на странице и кнопку изменения направления сортировки
-    createRightSideElement(data: any, sortParameter: string): HTMLElement {
+    createRightSideElement(data: any, sortParameter: string, rootParameter: string): HTMLElement {
         const rightSideElement = document.createElement('div');
         rightSideElement.classList.add('right-side');
 
@@ -128,6 +128,20 @@ export default class DirectoryView {
         
             rightSideElement.appendChild(btnSortElement);
         }
+
+        const buttonLinkElement = document.createElement('a');
+        buttonLinkElement.href = `http://localhost:80/uistats.php?root=${rootParameter}&sort=${sortParameter}`;
+        const btnStatsElement = document.createElement('button');
+        btnStatsElement.classList.add('btn-back');
+
+        const btnStatsImg = document.createElement('img');
+        btnStatsImg.src = 'ui/img/stats.png';
+        btnStatsImg.alt = 'Stats';
+        btnStatsImg.title = 'Посмотреть статистику';
+        btnStatsElement.appendChild(btnStatsImg);
+        
+        buttonLinkElement.appendChild(btnStatsElement);
+        rightSideElement.appendChild(buttonLinkElement);
 
         return rightSideElement;
     }
