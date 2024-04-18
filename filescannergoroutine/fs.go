@@ -135,9 +135,16 @@ func handleJsonDataRequest(respWriter http.ResponseWriter, request *http.Request
 	writeJsonData(fileScannerData, respWriter)
 }
 
+// sendPostRequest отправляет POST request с данными в Json на сервер Apache с PHP-интерпретатором
 func sendPostRequest(jsonData []byte) {
-	log.Println(jsonData)
-	// Create a new POST request
+	var data FileScannerData
+	err := json.Unmarshal(jsonData, &data)
+	if err != nil {
+		fmt.Println("Error unmarshalling JSON:", err)
+		return
+	}
+	fmt.Println("Field1:", data.RootPath)
+	fmt.Println("Field2:", data.Duration)
 	url := "http://localhost:80/dbadd.php"
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 	if err != nil {
@@ -146,7 +153,6 @@ func sendPostRequest(jsonData []byte) {
 	}
 	req.Header.Set("Content-Type", "application/json")
 
-	// Send the request
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -155,7 +161,6 @@ func sendPostRequest(jsonData []byte) {
 	}
 	defer resp.Body.Close()
 
-	// Check the response
 	if resp.StatusCode == http.StatusOK {
 		log.Println("POST request sent successfully")
 	} else {
@@ -163,7 +168,7 @@ func sendPostRequest(jsonData []byte) {
 	}
 }
 
-// handleFrontendDataRequest
+// handleFrontendDataRequest отображает фронтенд-часть приложения
 func handleFrontendDataRequest(respWriter http.ResponseWriter, request *http.Request) {
 	http.ServeFile(respWriter, request, "./index.html")
 }

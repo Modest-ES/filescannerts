@@ -1,23 +1,26 @@
 <?php
-    echo "<h1>DB ADD</h1>";
+    $jsonByteArray = file_get_contents('php://input');
 
-    $json = file_get_contents('php://input');
-    echo "Received JSON Data:<br>";
-    echo "<pre>";
-    print_r($json);
-    echo "</pre>";
-    // Decode the JSON data into an associative array
-    $data = json_decode($json, true);
+    $jsonString = '';
+    for ($i = 0; $i < strlen($jsonByteArray); $i++) {
+        $jsonString .= chr(ord($jsonByteArray[$i]));
+    }
+    $data = json_decode($jsonString, true); 
     
-    // Check if the decoding was successful
     if ($data !== null) {
-        // Output the JSON data
-        echo "Received JSON Data:<br>";
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-    } else {
-        // If the JSON could not be decoded, output an error message
-        echo "Error: Invalid JSON data received.";
+
+        $rootPath = $data['RootPath'];
+        $duration = $data['Duration'];
+        $status = $data['Status'];
+        $errorMessage = $data['ErrorMessage'];
+
+        $sizeSum = 0;
+        foreach ($data['FilesList'] as $file) {
+            $sizeSum += $file['FileSize'];
+        }
+        $DBconnect = mysqli_connect("localhost","mainUser","passwordmain","mainDB");
+        $result = mysqli_query($DBconnect,"INSERT INTO mainDB.fileStats(c_path, c_size, c_elapsed_time, c_date) VALUES ('" . $rootPath . "', '" . $sizeSum . "', '" . $duration . "', NOW())");
+        mysqli_close($DBconnect);
     }
 ?>
+
