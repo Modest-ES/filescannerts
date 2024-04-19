@@ -129,6 +129,14 @@ h2 {
     overflow-y: auto;
     flex-grow: 1;
     padding: 1%;
+    padding-top: 0;
+}
+
+.nogrow {
+    flex-grow: 0;
+    overflow: visible;
+    padding-bottom: 0;
+    padding-top: 1%;
 }
 
 canvas {

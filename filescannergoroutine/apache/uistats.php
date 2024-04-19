@@ -37,7 +37,7 @@
         echo "<div class='canvas-shell'>";
         echo "<canvas id='statsChart'></canvas>";
         echo "</div>";
-        echo "<div class='content'>";
+        echo "<div class='content nogrow'>";
         echo "<div class='statline'>";
         echo "<p class='c-id'>ID</p>";
         echo "<p class='c-path'>Директория</p>";
@@ -45,6 +45,8 @@
         echo "<p class='c-elapsed-time'>Время подсчета</p>";
         echo "<p class='c-date'>Дата/Время запроса</p>";
         echo "</div>";
+        echo "</div>";
+        echo "<div class='content'>";
 
         $chartDotList = [];
 
