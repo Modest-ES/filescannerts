@@ -46,23 +46,27 @@
         echo "<p class='c-date'>Дата/Время запроса</p>";
         echo "</div>";
 
-        $sizeValues = [];
-        $elapsedTimeValues = [];
+        $chartDotList = [];
 
         $DBconnect = mysqli_connect("localhost","mainUser","passwordmain","mainDB");
         $result = mysqli_query($DBconnect,"SELECT c_id, c_path, c_size, c_elapsed_time, c_date FROM fileStats");
         while($row = mysqli_fetch_array($result)) {
+            $chartDot = [];
             echo "<div class='statline'>";
             echo "<p class='c-id'>" . $row['c_id'] . "</p>";
             echo "<p class='c-path'>" . $row['c_path'] . "</p>";
             echo "<p class='c-size'>" . $row['c_size'] . "</p>";
-            array_push($sizeValues, intval($row['c_size']));
+            array_push($chartDot, intval($row['c_size']));
             echo "<p class='c-elapsed-time'>" . $row['c_elapsed_time'] . "</p>";
-            if (substr($row['c_elapsed_time'], -2) === 'ms') {
-                array_push($elapsedTimeValues, floatval(substr($row['c_elapsed_time'], 0, -2)) * 1000);
-            } else {
-                array_push($elapsedTimeValues, floatval(substr($row['c_elapsed_time'], 0, -2)));
+            $number = floatval($row['c_elapsed_time']);
+            $postfix = substr($row['c_elapsed_time'], -2);
+            if (ctype_digit($postfix[0])) { 
+                $number *= 1000000;
+            } elseif ($postfix[0] === 'm') { 
+                $number *= 1000;
             }
+            array_push($chartDot, $number);
+            array_push($chartDotList, $chartDot);
             echo "<p class='c-date'>" . $row['c_date'] . "</p>";
             echo "</div>";
         }
@@ -71,6 +75,20 @@
         echo "<footer>";
         echo "<p>® File Scanner 2024</p>";
         echo "</footer>";
+
+        function comparePairs($a, $b) {
+            return $a[1] - $b[1]; 
+        }
+
+        usort($chartDotList, 'comparePairs');
+
+        $sizeValues = [];
+        $elapsedTimeValues = [];
+
+        foreach ($chartDotList as $chartDot) {
+            $sizeValues[] = $chartDot[0];
+            $elapsedTimeValues[] = $chartDot[1];
+        }
 
         $jsonData = json_encode([
             'sizeValues' => $sizeValues,
@@ -82,6 +100,7 @@
         var data = <?php echo $jsonData; ?>;
 
         var ctx = document.getElementById('statsChart').getContext('2d');
+        Chart.defaults.color = 'rgba(255, 255, 255, 0.7)';
         var myChart = new Chart(ctx, {
             type: 'scatter',
             data: {
@@ -93,7 +112,9 @@
                             y: size
                         };
                     }),
-                    backgroundColor: 'rgba(254, 185, 22, 0.6)',
+                    backgroundColor: 'rgba(254, 185, 22, 0.9)',
+                    borderColor: 'rgba(254, 185, 22, 0.6)',
+                    borderWidth: 1,
                     showLine: true
                 }]
             },
@@ -103,12 +124,18 @@
                         title: {
                             display: true,
                             text: 'Elapsed Time (µs)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.11)'
                         }
                     },
                     y: {
                         title: {
                             display: true,
                             text: 'Size (bytes)'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.11)'
                         }
                     }
                 }

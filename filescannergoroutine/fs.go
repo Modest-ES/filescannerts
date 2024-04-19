@@ -143,8 +143,6 @@ func sendPostRequest(jsonData []byte) {
 		fmt.Println("Error unmarshalling JSON:", err)
 		return
 	}
-	fmt.Println("Field1:", data.RootPath)
-	fmt.Println("Field2:", data.Duration)
 	url := "http://localhost:80/dbadd.php"
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 	if err != nil {
@@ -161,9 +159,7 @@ func sendPostRequest(jsonData []byte) {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode == http.StatusOK {
-		log.Println("POST request sent successfully")
-	} else {
+	if resp.StatusCode != http.StatusOK {
 		log.Printf("POST request failed with status: %s\n", resp.Status)
 	}
 }
