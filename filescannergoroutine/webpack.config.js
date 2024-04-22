@@ -1,7 +1,8 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './ui/javascript/Main.ts',
+  entry: path.join(__dirname, 'ui', 'typescript', 'Main.ts'),
   module: {
     rules: [
       {
@@ -19,10 +20,17 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.ts'],
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'ui'), // The output directory for the bundled files
+    filename: 'bundle.[contenthash].js',
+    path: path.resolve(__dirname, 'ui'), 
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      filename: 'index.html', 
+      inject: 'body', 
+    }),
+  ],
 };

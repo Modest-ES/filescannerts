@@ -43,11 +43,7 @@ html {
 
 body {
     background: rgb(20, 20, 20);
-    /* background: linear-gradient(45deg, rgb(35, 104, 237), rgb(20, 20, 20) 19%, rgb(35, 35, 35) 50%, rgb(20, 20, 20) 79%, rgb(35, 104, 237)); */
     background-attachment: fixed;
-    background-size: 400% 400%;
-    animation: gradient 35s ease infinite;
-    height: 100vh;
     padding: 0;
     margin: 0;
     height: 100%;
@@ -65,7 +61,7 @@ a {
 
 p {
     font-size: 14px;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', system-ui, sans-serif;
     color: white;
 }
 
@@ -82,7 +78,6 @@ p {
   position: fixed;
   top: 2%;
   left: 2%;
-  /* transform: translate(-50%, -50%); */
   z-index: 0;
 }
 .load-animation div {
@@ -230,7 +225,7 @@ header {
 }
 
 h2 {
-    font-family: 'Roboto';
+    font-family: 'Roboto', system-ui, sans-serif;
     font-size: 14px;
     color: white;
     word-break: break-all;
@@ -297,7 +292,7 @@ h2 {
 }
 
 .error-message p, .null-element p {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', system-ui, sans-serif;
     font-size: 12px;
     word-break: break-all;
     margin-left: 5px;

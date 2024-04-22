@@ -1,8 +1,26 @@
 import "../css/styles.css";
+import { SortOptions } from "./Main";
+
+// File структура каждого отдельного файла (или папки) в директории
+interface File {
+    FileName: string;
+    FileSize: number;
+    FileSizeString: string;
+    FileType: string;
+}
+
+// FileScannerData структура всего списка файлов (или папок) в текущей директории
+interface FileScannerData {
+    RootPath: string;
+    Duration: string;
+    FilesList: File[];
+    Status: number;
+    ErrorMessage: string;
+}
 
 // Model обрабатывает внутреннюю логику и алгоритмы взаимодействия с данными
 export default class DirectoryModel {
-    data: any;
+    data: FileScannerData | null;
 
     // constructor инициализирует экземпляр класса DirectoryModel
     constructor() {
@@ -12,13 +30,9 @@ export default class DirectoryModel {
     // verifyUrlParameters проверяет наличие значений параметров sort и root в URL и при их отсутствии указывает им стандартные значения: для root указывается /home, для sort указывается asc
     verifyUrlParameters(): void {
         const urlParameters = new URLSearchParams(window.location.search);
-        const loadElement = document.getElementById('load-animation');
-            if (loadElement) {
-                loadElement.style.opacity = '1';
-            }
         if (!urlParameters.has('sort')) {
             const newUrl = new URL(window.location.href);
-            newUrl.searchParams.set('sort', 'asc');
+            newUrl.searchParams.set('sort', SortOptions.Ascending);
             window.location.href = newUrl.toString();
         }
         if (!urlParameters.has('root')) {
@@ -50,7 +64,7 @@ export default class DirectoryModel {
         if (sortParameter) {
             url += `&sort=${sortParameter}`;
         } else {
-            url += `&sort=asc`;
+            url += `&sort=${SortOptions.Ascending}`;
         }
         
         return url;
@@ -62,10 +76,6 @@ export default class DirectoryModel {
             const response = await fetch(url);
             const data = await response.json();
             this.data = data;
-            const loadElement = document.getElementById('load-animation');
-            if (loadElement) {
-                loadElement.style.opacity = '0';
-            }
         } catch (error) {
             console.error('Ошибка считывания данных из json: ', error);
         }

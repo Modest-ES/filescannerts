@@ -1,6 +1,7 @@
 import "../css/styles.css";
 
 import DirectoryController from "./DirectoryController";
+import { SortOptions } from "./Main";
 
 // View обрабатывает функционал интерфейса пользователя
 export default class DirectoryView {
@@ -15,20 +16,18 @@ export default class DirectoryView {
 
     // displayLoadElement отображает HTML-элемент с анимацией загрузки
     displayLoadElement(): void {
-        // const loadElement = document.getElementById('load-animation');
-        // if (loadElement) {
-        //     loadElement.style.opacity = '1';
-        //     console.log("DISPLAY", loadElement);
-        // }
+        const loadElement = document.getElementById('load-animation');
+        if (loadElement) {
+            loadElement.style.opacity = '1';
+        }
     }
 
     // hideLoadElement скрывает HTML-элемент с анимацией загрузки
     hideLoadElement(): void {
-        // const loadElement = document.getElementById('load-animation');
-        // if (loadElement) {
-        //     loadElement.style.opacity = '0';
-        //     console.log("HIDE", loadElement);
-        // }
+        const loadElement = document.getElementById('load-animation');
+        if (loadElement) {
+            loadElement.style.opacity = '0';
+        }
     }
 
     // displayDirectoryData отображает на странице header, основную часть и footer
@@ -135,9 +134,9 @@ export default class DirectoryView {
             btnSortElement.appendChild(btnSortTitleElement);
         
             const btnSortImgElement = document.createElement('img');
-            btnSortImgElement.src = sortParameter == 'asc' ? 'ui/img/sortasc.png' : 'ui/img/sortdesc.png';
+            btnSortImgElement.src = sortParameter == SortOptions.Ascending ? 'ui/img/sortasc.png' : 'ui/img/sortdesc.png';
             btnSortImgElement.alt = sortParameter;
-            btnSortImgElement.title = sortParameter == 'asc' ? "По возрастанию" : "По убыванию";
+            btnSortImgElement.title = sortParameter == SortOptions.Ascending ? "По возрастанию" : "По убыванию";
         
             btnSortElement.appendChild(btnSortImgElement);
         

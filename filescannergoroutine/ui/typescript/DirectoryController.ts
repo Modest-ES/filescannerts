@@ -3,6 +3,7 @@ import "../css/styles.css";
 // Controller реализует взаимодействие компонентов Model и View
 import DirectoryView from './DirectoryView';
 import DirectoryModel from './DirectoryModel';
+import { SortOptions } from './Main';
 
 export default class DirectoryController {
     private model: DirectoryModel;
@@ -21,8 +22,9 @@ export default class DirectoryController {
         this.model.fetchData(this.model.constructUrl())
             .then(() => {
                 this.view.displayDirectoryData(this.model.data, this.model.getSortParameter());
+            }).finally(() => {
+                this.view.hideLoadElement();
             });
-        this.view.hideLoadElement();
     }
 
     // onBtnBackClicked меняет адрес директории в URL на адрес уровнем выше и отображает файлы директории по новому адресу
@@ -41,7 +43,7 @@ export default class DirectoryController {
         const urlParameters = new URLSearchParams(window.location.search);
         let sortParam = urlParameters.get('sort');
 
-        sortParam = sortParam === 'desc' ? 'asc' : 'desc';
+        sortParam = sortParam === SortOptions.Descending ? SortOptions.Ascending : SortOptions.Descending;
 
         const newUrl = `${window.location.pathname}?root=${urlParameters.get('root')}&sort=${sortParam}`;
         window.history.pushState({ path: newUrl }, '', newUrl);

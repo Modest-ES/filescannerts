@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "outDir": "./ui/typescript",
+      "outDir": "ui/typescript",
       "sourceMap": true,
       "strict": true,
       "module": "ES6",
