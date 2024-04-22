@@ -76,7 +76,7 @@ export default class DirectoryView {
         const btnBackImg = document.createElement('img');
         btnBackImg.src = 'ui/img/leftarrow.png';
         btnBackImg.alt = 'Back';
-        btnBackImg.title = urlParameters.get('root') == "/home" ? "/home is the main directory" : 'Return to the previous directory';
+        btnBackImg.title = urlParameters.get('root') == "/home" ? "/home это корневая директория" : 'Предыдущая директория';
         btnBackElement.appendChild(btnBackImg);
         
         leftSideElement.appendChild(btnBackElement);
@@ -97,7 +97,7 @@ export default class DirectoryView {
         leftSideElement.appendChild(buttonLinkElement);
 
         const rootpathElement = document.createElement('h2');
-        rootpathElement.textContent = `Root: ${data.RootPath}`;
+        rootpathElement.textContent = `Директория: ${data.RootPath}`;
         
         leftSideElement.appendChild(rootpathElement);
 
@@ -113,7 +113,7 @@ export default class DirectoryView {
         loadtimeElement.classList.add('loadtime');
 
         const loadtimeTitleElement = document.createElement('p');
-        loadtimeTitleElement.textContent = 'Loadtime:';
+        loadtimeTitleElement.textContent = 'Время подсчета:';
 
         loadtimeElement.appendChild(loadtimeTitleElement);
 
@@ -130,14 +130,14 @@ export default class DirectoryView {
             btnSortElement.addEventListener('click', () => this.controller.onBtnSortClicked());
         
             const btnSortTitleElement = document.createElement('p');
-            btnSortTitleElement.textContent = 'Sorting:';
+            btnSortTitleElement.textContent = 'Сортировка:';
         
             btnSortElement.appendChild(btnSortTitleElement);
         
             const btnSortImgElement = document.createElement('img');
             btnSortImgElement.src = sortParameter == 'asc' ? 'ui/img/sortasc.png' : 'ui/img/sortdesc.png';
             btnSortImgElement.alt = sortParameter;
-            btnSortImgElement.title = sortParameter == 'asc' ? "Ascending" : "Descending";
+            btnSortImgElement.title = sortParameter == 'asc' ? "По возрастанию" : "По убыванию";
         
             btnSortElement.appendChild(btnSortImgElement);
         

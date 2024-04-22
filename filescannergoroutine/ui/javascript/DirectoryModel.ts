@@ -67,7 +67,7 @@ export default class DirectoryModel {
                 loadElement.style.opacity = '0';
             }
         } catch (error) {
-            console.error('Error fetching the directory data : ', error);
+            console.error('Ошибка считывания данных из json: ', error);
         }
     }
 }

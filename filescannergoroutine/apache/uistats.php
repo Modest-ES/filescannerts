@@ -8,17 +8,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>File Scanner Stats</title>
+    <title>File Scanner Статистика</title>
 </head>
 <body>
     <div class="main-shell" id="directory-info">
         <?php
+        // сохранение параметров URL для возврата на предыдущую страницу
         if (isset($_GET['root'])) {
             $rootval = htmlspecialchars($_GET['root'], ENT_QUOTES, 'UTF-8');
         } else {
             $rootval = '/home';
         }
-
         if (isset($_GET['sort'])) {
             $sortval = htmlspecialchars($_GET['sort'], ENT_QUOTES, 'UTF-8');
         } else {
@@ -48,18 +48,21 @@
         echo "</div>";
         echo "<div class='content'>";
 
+        // список всех точек графика
         $chartDotList = [];
-
+        // подключение к БД
         $DBconnect = mysqli_connect("localhost","mainUser","passwordmain","mainDB");
+        // считывание данных из БД
         $result = mysqli_query($DBconnect,"SELECT c_id, c_path, c_size, c_elapsed_time, c_date FROM fileStats");
         while($row = mysqli_fetch_array($result)) {
-            $chartDot = [];
+            $chartDot = []; // массив-пара, хранящий размер директории и ее время подсчета
             echo "<div class='statline'>";
             echo "<p class='c-id'>" . $row['c_id'] . "</p>";
             echo "<p class='c-path'>" . $row['c_path'] . "</p>";
             echo "<p class='c-size'>" . $row['c_size'] . "</p>";
             array_push($chartDot, intval($row['c_size']));
             echo "<p class='c-elapsed-time'>" . $row['c_elapsed_time'] . "</p>";
+            // вычисление времени подсчета в µs
             $number = floatval($row['c_elapsed_time']);
             $postfix = substr($row['c_elapsed_time'], -2);
             if (ctype_digit($postfix[0])) { 
@@ -73,25 +76,27 @@
             echo "</div>";
         }
         mysqli_close($DBconnect);
+
         echo "</div>";
         echo "<footer>";
         echo "<p>® File Scanner 2024</p>";
         echo "</footer>";
 
+        // comparePairs сравнивает пары элементов по значениям второго элемента каждой пары
         function comparePairs($a, $b) {
             return $a[1] - $b[1]; 
         }
-
+        // сортировка списка точек графика по возрастанию значений времени подсчета
         usort($chartDotList, 'comparePairs');
 
+        // разбиение списка точек графика на отдельные массивы для шкал графика
         $sizeValues = [];
         $elapsedTimeValues = [];
-
         foreach ($chartDotList as $chartDot) {
             $sizeValues[] = $chartDot[0];
             $elapsedTimeValues[] = $chartDot[1];
         }
-
+        // создание файла json для реализации графика
         $jsonData = json_encode([
             'sizeValues' => $sizeValues,
             'elapsedTimeValues' => $elapsedTimeValues
@@ -100,14 +105,14 @@
     </div>
     <script>
         var data = <?php echo $jsonData; ?>;
-
+        // создание графика
         var ctx = document.getElementById('statsChart').getContext('2d');
         Chart.defaults.color = 'rgba(255, 255, 255, 0.7)';
         var myChart = new Chart(ctx, {
             type: 'scatter',
             data: {
                 datasets: [{
-                    label: 'Elapsed Time vs Size',
+                    label: 'Время подсчета vs Размер',
                     data: data.sizeValues.map(function(size, index) {
                         return {
                             x: data.elapsedTimeValues[index],
@@ -125,7 +130,7 @@
                     x: {
                         title: {
                             display: true,
-                            text: 'Elapsed Time (µs)'
+                            text: 'Время подсчета (µs)'
                         },
                         grid: {
                             color: 'rgba(255, 255, 255, 0.11)'
@@ -134,7 +139,7 @@
                     y: {
                         title: {
                             display: true,
-                            text: 'Size (bytes)'
+                            text: 'Размер (байт)'
                         },
                         grid: {
                             color: 'rgba(255, 255, 255, 0.11)'

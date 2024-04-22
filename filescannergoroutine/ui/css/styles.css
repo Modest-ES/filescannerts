@@ -372,12 +372,12 @@ footer {
     }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 420px) {
     .file-type p {
         display: none;
     }
 
-    .right-side {
+    .right-side, .left-side {
         flex-direction: column;
     }
 

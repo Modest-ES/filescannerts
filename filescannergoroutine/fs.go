@@ -75,7 +75,7 @@ func handleJsonDataRequest(respWriter http.ResponseWriter, request *http.Request
 			Duration:     duration,
 			FilesList:    []directoryreader.File{},
 			Status:       1,
-			ErrorMessage: "The value of root parameter is not provided. Use '/?root=<path>' to enter the path to the root directory",
+			ErrorMessage: "Отсутствует значение параметра root. Используйте '/?root=<путь>' для указания пути директории",
 		}
 		writeJsonData(fileScannerData, respWriter)
 		return
@@ -107,7 +107,7 @@ func handleJsonDataRequest(respWriter http.ResponseWriter, request *http.Request
 			Duration:     duration,
 			FilesList:    []directoryreader.File{},
 			Status:       1,
-			ErrorMessage: "The sort parameter value is incorrect. Use either sort=asc or sort=desc",
+			ErrorMessage: "Значение параметра sort неверно. Используйте sort=asc (по возрастанию) или sort=desc (по убыванию)",
 		}
 		writeJsonData(fileScannerData, respWriter)
 		return
@@ -140,13 +140,13 @@ func sendPostRequest(jsonData []byte) {
 	var data FileScannerData
 	err := json.Unmarshal(jsonData, &data)
 	if err != nil {
-		fmt.Println("Error unmarshalling JSON:", err)
+		fmt.Println("Ошибка анмаршаллинга JSON:", err)
 		return
 	}
 	url := "http://localhost:80/dbadd.php"
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 	if err != nil {
-		log.Printf("Error creating POST request: %v", err)
+		log.Printf("Ошибка создания POST запроса: %v", err)
 		return
 	}
 	req.Header.Set("Content-Type", "application/json")
@@ -154,13 +154,13 @@ func sendPostRequest(jsonData []byte) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Printf("Error sending POST request: %v", err)
+		log.Printf("Ошибка отправки POST запроса: %v", err)
 		return
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("POST request failed with status: %s\n", resp.Status)
+		log.Printf("POST запрос отправлен с ошибкой: %s\n", resp.Status)
 	}
 }
 
@@ -170,7 +170,7 @@ func handleFrontendDataRequest(respWriter http.ResponseWriter, request *http.Req
 }
 
 func main() {
-	fmt.Println("Program started")
+	fmt.Println("Начало работы")
 
 	config, err := readConfigFile()
 	if err != nil {
@@ -194,10 +194,10 @@ func main() {
 		sig := <-sigChan
 		switch sig {
 		case syscall.SIGINT:
-			fmt.Println("Signal Interrupt (SIGINT) encountered. Shutting down")
+			fmt.Println("Уловлен сигнал прерывания (SIGINT). Выключение сервера")
 			cancel()
 		case syscall.SIGTERM:
-			fmt.Println("Signal Terminate (SIGTERM) encountered. Shutting down")
+			fmt.Println("Уловлен сигнал прекращения (SIGTERM). Выключение сервера")
 			cancel()
 		}
 	}()
@@ -208,9 +208,9 @@ func main() {
 	}
 
 	go func() {
-		log.Printf("Starting a server on port %d", config.Port)
+		log.Printf("Запуск сервера на порте: %d", config.Port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("Server failed to start: %v", err)
+			log.Fatalf("Ошибка запуска сервера: %v", err)
 		}
 	}()
 
@@ -220,8 +220,8 @@ func main() {
 	defer shutdownCancel()
 
 	if err := server.Shutdown(shutdownCtx); err != nil {
-		log.Fatalf("Server shutdown failed: %v", err)
+		log.Fatalf("Ошибка выключения сервера: %v", err)
 	}
 
-	log.Println("Server shutdown complete")
+	log.Println("Выключение сервера завершено")
 }
