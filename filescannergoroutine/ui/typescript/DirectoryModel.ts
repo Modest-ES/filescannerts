@@ -3,19 +3,19 @@ import { SortOptions } from "./Main";
 
 // File структура каждого отдельного файла (или папки) в директории
 interface File {
-    FileName: string;
-    FileSize: number;
-    FileSizeString: string;
-    FileType: string;
+    FileName: string; // название файла или папки
+    FileSize: number; // размер файла или папки
+    FileSizeString: string; // размер в строковом формате с указанием единиц измерения
+    FileType: string; // тип (файл или папка)
 }
 
 // FileScannerData структура всего списка файлов (или папок) в текущей директории
 interface FileScannerData {
-    RootPath: string;
-    Duration: string;
-    FilesList: File[];
-    Status: number;
-    ErrorMessage: string;
+    RootPath: string; // путь текущей директории
+    Duration: string; // время подсчета размеров папок и файлов в директории
+    FilesList: File[]; // список всех файлов и папок в директории
+    Status: number; // статус выполнения (0 - без ошибок / >0 - с ошибкой)
+    ErrorMessage: string; // сообщение об ошибке при ее наличии
 }
 
 // Model обрабатывает внутреннюю логику и алгоритмы взаимодействия с данными
@@ -74,10 +74,14 @@ export default class DirectoryModel {
     async fetchData(url: string): Promise<void> {
         try {
             const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             this.data = data;
         } catch (error) {
             console.error('Ошибка считывания данных из json: ', error);
+            throw error;
         }
     }
 }

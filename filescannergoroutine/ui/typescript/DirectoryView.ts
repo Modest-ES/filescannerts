@@ -73,7 +73,7 @@ export default class DirectoryView {
         btnBackElement.addEventListener('click', () => this.controller.onBtnBackClicked());
 
         const btnBackImg = document.createElement('img');
-        btnBackImg.src = 'ui/img/leftarrow.png';
+        btnBackImg.src = 'img/leftarrow.png';
         btnBackImg.alt = 'Back';
         btnBackImg.title = urlParameters.get('root') == "/home" ? "/home это корневая директория" : 'Предыдущая директория';
         btnBackElement.appendChild(btnBackImg);
@@ -87,7 +87,7 @@ export default class DirectoryView {
         btnStatsElement.classList.add('btn-back');
 
         const btnStatsImg = document.createElement('img');
-        btnStatsImg.src = 'ui/img/stats.png';
+        btnStatsImg.src = 'img/stats.png';
         btnStatsImg.alt = 'Stats';
         btnStatsImg.title = 'Посмотреть статистику';
         btnStatsElement.appendChild(btnStatsImg);
@@ -134,7 +134,7 @@ export default class DirectoryView {
             btnSortElement.appendChild(btnSortTitleElement);
         
             const btnSortImgElement = document.createElement('img');
-            btnSortImgElement.src = sortParameter == SortOptions.Ascending ? 'ui/img/sortasc.png' : 'ui/img/sortdesc.png';
+            btnSortImgElement.src = sortParameter == SortOptions.Ascending ? 'img/sortasc.png' : 'img/sortdesc.png';
             btnSortImgElement.alt = sortParameter;
             btnSortImgElement.title = sortParameter == SortOptions.Ascending ? "По возрастанию" : "По убыванию";
         
@@ -174,7 +174,7 @@ export default class DirectoryView {
         const errorElement = document.createElement('div');
         errorElement.classList.add('error-message');
         const errorIconElement = document.createElement('img');
-        errorIconElement.src = 'ui/img/error.png';
+        errorIconElement.src = 'img/error.png';
         errorIconElement.alt = 'Error';
         errorIconElement.title = data.ErrorMessage;
         
@@ -193,7 +193,7 @@ export default class DirectoryView {
         const nullElement = document.createElement('div');
         nullElement.classList.add('null-element');
         const warningIconElement = document.createElement('img');
-        warningIconElement.src = 'ui/img/warning.png';
+        warningIconElement.src = 'img/warning.png';
         warningIconElement.alt = 'Warning';
         warningIconElement.title = "Текущая директория пустая";
 
@@ -218,7 +218,7 @@ export default class DirectoryView {
         fileTypeElement.classList.add('file-type');
         
         const fileTypeImgElement = document.createElement('img');
-        fileTypeImgElement.src = file.FileType == 'Folder' ? 'ui/img/folder.png' : 'ui/img/file.png';
+        fileTypeImgElement.src = file.FileType == 'Folder' ? 'img/folder.png' : 'img/file.png';
         fileTypeImgElement.alt = file.FileType;
         fileTypeImgElement.title = file.FileType;
         fileTypeImgElement.width = 20;

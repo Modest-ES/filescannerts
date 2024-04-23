@@ -53,6 +53,10 @@ func GetRootData(rootpath string) ([]File, error) {
 		path := filepath.Join(rootpath, fileEntry.Name())
 		fileInfo, err := os.Stat(path)
 		if err != nil {
+			if os.IsPermission(err) {
+				log.Printf("Пропуск директории: '%s' из-за отсутствия доступа\n", path)
+				continue
+			}
 			return nil, err
 		}
 
@@ -87,6 +91,20 @@ func calculateFolderSize(path string) (int64, error) {
 		size += info.Size()
 		return nil
 	})
+	err := filepath.Walk(path, func(subpath string, info os.FileInfo, err error) error {
+		if err != nil {
+			if os.IsPermission(err) {
+				log.Printf("Пропуск директории: '%s' из-за отсутствия доступа\n", subpath)
+				return nil
+			}
+			return err
+		}
+		size += info.Size()
+		return nil
+	})
+	if err != nil {
+		return 0, err
+	}
 	return size, nil
 }
 

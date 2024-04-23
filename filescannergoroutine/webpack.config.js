@@ -25,6 +25,7 @@ module.exports = {
   output: {
     filename: 'bundle.[contenthash].js',
     path: path.resolve(__dirname, 'ui'), 
+    clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

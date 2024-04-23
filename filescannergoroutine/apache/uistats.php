@@ -128,6 +128,7 @@
             options: {
                 scales: {
                     x: {
+                        type: 'logarithmic',
                         title: {
                             display: true,
                             text: 'Время подсчета (µs)'
@@ -137,6 +138,7 @@
                         }
                     },
                     y: {
+                        type: 'logarithmic',
                         title: {
                             display: true,
                             text: 'Размер (байт)'

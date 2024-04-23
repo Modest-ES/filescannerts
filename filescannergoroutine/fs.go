@@ -165,9 +165,9 @@ func sendPostRequest(jsonData []byte) {
 }
 
 // handleFrontendDataRequest отображает фронтенд-часть приложения
-func handleFrontendDataRequest(respWriter http.ResponseWriter, request *http.Request) {
-	http.ServeFile(respWriter, request, "./index.html")
-}
+// func handleFrontendDataRequest(respWriter http.ResponseWriter, request *http.Request) {
+// 	http.ServeFile(respWriter, request, "./ui/index.html")
+// }
 
 func main() {
 	fmt.Println("Начало работы")
@@ -180,10 +180,9 @@ func main() {
 	mux := http.NewServeMux()
 	staticFilesFolder := http.Dir("./ui")
 	staticFilesServer := http.FileServer(staticFilesFolder)
-	mux.Handle("/ui/", http.StripPrefix("/ui/", staticFilesServer))
+	mux.Handle("/", staticFilesServer)
 
 	mux.HandleFunc("/files", handleJsonDataRequest)
-	mux.HandleFunc("/", handleFrontendDataRequest)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
