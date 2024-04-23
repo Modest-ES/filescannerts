@@ -2,3 +2,4 @@ filescannergoroutine/node_modules/
 .vscode/
 filescannergoroutine/ui/bundle.js
 filescannergoroutine/fs
+node_modules/
