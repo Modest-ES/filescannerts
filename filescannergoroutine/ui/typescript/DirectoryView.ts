@@ -2,6 +2,7 @@ import "../css/styles.css";
 
 import DirectoryController from "./DirectoryController";
 import { SortOptions } from "./Main";
+import { FileScannerData, File } from './DirectoryModel';
 
 // View обрабатывает функционал интерфейса пользователя
 export default class DirectoryView {
@@ -31,7 +32,7 @@ export default class DirectoryView {
     }
 
     // displayDirectoryData отображает на странице header, основную часть и footer
-    displayDirectoryData(data: any, sortParameter: string): void {
+    displayDirectoryData(data: FileScannerData | null, sortParameter: string): void {
         if (this.mainShellElement) {
             this.mainShellElement.innerHTML = '';
 
@@ -47,7 +48,7 @@ export default class DirectoryView {
     }
 
     // createHeaderElement отображает левую и правую части header-элемента
-    createHeaderElement(data: any, sortParameter: string): HTMLElement {
+    createHeaderElement(data: FileScannerData | null, sortParameter: string): HTMLElement {
         const headerElement = document.createElement('header');
 
         const leftSideElement = this.createLeftSideElement(data, sortParameter);
@@ -60,7 +61,7 @@ export default class DirectoryView {
     }
 
     // createLeftSideElement отображает кнопку возвращения на предыдущую директорию и адрес текущей директории
-    createLeftSideElement(data: any, sortParameter: string): HTMLElement {
+    createLeftSideElement(data: FileScannerData | null, sortParameter: string): HTMLElement {
         const leftSideElement = document.createElement('div');
         leftSideElement.classList.add('left-side');
 
@@ -82,7 +83,9 @@ export default class DirectoryView {
 
         const buttonLinkElement = document.createElement('a');
         buttonLinkElement.classList.add('btn-stats');
-        buttonLinkElement.href = `http://localhost:80/uistats.php?root=${data.RootPath}&sort=${sortParameter}`;
+        if (data != null) {
+            buttonLinkElement.href = `http://localhost:80/uistats.php?root=${data.RootPath}&sort=${sortParameter}`;
+        }
         const btnStatsElement = document.createElement('button');
         btnStatsElement.classList.add('btn-back');
 
@@ -96,7 +99,9 @@ export default class DirectoryView {
         leftSideElement.appendChild(buttonLinkElement);
 
         const rootpathElement = document.createElement('h2');
-        rootpathElement.textContent = `Директория: ${data.RootPath}`;
+        if (data != null) {
+            rootpathElement.textContent = `Директория: ${data.RootPath}`;
+        }
         
         leftSideElement.appendChild(rootpathElement);
 
@@ -104,7 +109,7 @@ export default class DirectoryView {
     }
 
     // createRightSideElement отображает время загрузки данных на странице и кнопку изменения направления сортировки
-    createRightSideElement(data: any, sortParameter: string): HTMLElement {
+    createRightSideElement(data: FileScannerData | null, sortParameter: string): HTMLElement {
         const rightSideElement = document.createElement('div');
         rightSideElement.classList.add('right-side');
 
@@ -117,12 +122,14 @@ export default class DirectoryView {
         loadtimeElement.appendChild(loadtimeTitleElement);
 
         const loadtimeValueElement = document.createElement('p');
-        loadtimeValueElement.textContent = data.Duration;
+        if (data != null) {
+            loadtimeValueElement.textContent = data.Duration;
+        }
         loadtimeElement.appendChild(loadtimeValueElement);
 
         rightSideElement.appendChild(loadtimeElement);
 
-        if (data.Status == 0) {
+        if (data != null && data.Status == 0) {
             const btnSortElement = document.createElement('button');
             btnSortElement.classList.add('btn-sort');
 
@@ -147,20 +154,20 @@ export default class DirectoryView {
     }
 
     // createContentElement отображает элемент с сообщением об ошибке при ее наличии, либо список строк с данными о файлах
-    createContentElement(data: any): HTMLElement {
+    createContentElement(data: FileScannerData | null): HTMLElement {
         const contentElement = document.createElement('div');
         contentElement.classList.add('content');
 
-        if (data.Status != 0) {
+        if (data != null && data.Status != 0) {
             const errorElement = this.createErrorElement(data);
             contentElement.appendChild(errorElement);
         }
         
-        if (data.FilesList == null) {
+        if (data != null && data.FilesList == null) {
             const nullElement = this.createNullElement();
             contentElement.appendChild(nullElement);
-        } else {
-            data.FilesList.forEach((file: any) => {
+        } else if (data != null) {
+            data.FilesList.forEach((file: File) => {
                 const filelineElement = this.createFilelineElement(file);
                 contentElement.appendChild(filelineElement);
             })
@@ -170,18 +177,22 @@ export default class DirectoryView {
     }
 
     // createErrorElement отображает сообщение об ошибке
-    createErrorElement(data: any): HTMLElement {
+    createErrorElement(data: FileScannerData | null): HTMLElement {
         const errorElement = document.createElement('div');
         errorElement.classList.add('error-message');
         const errorIconElement = document.createElement('img');
         errorIconElement.src = 'img/error.png';
         errorIconElement.alt = 'Error';
-        errorIconElement.title = data.ErrorMessage;
+        if (data != null) {
+            errorIconElement.title = data.ErrorMessage;
+        }
         
         errorElement.appendChild(errorIconElement);
 
         const errorMessageElement = document.createElement('p');
-        errorMessageElement.textContent = data.ErrorMessage;
+        if (data != null) {
+            errorMessageElement.textContent = data.ErrorMessage;
+        }
 
         errorElement.appendChild(errorMessageElement);
 
@@ -207,7 +218,7 @@ export default class DirectoryView {
     }
 
     // createFilelineElement отображает строку с данными о файле
-    createFilelineElement(file: any): HTMLElement {
+    createFilelineElement(file: File): HTMLElement {
         const filelineElement = document.createElement('div');
         filelineElement.classList.add('fileline');
         if (file.FileType == 'Folder') {

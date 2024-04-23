@@ -141,7 +141,7 @@
                         type: 'logarithmic',
                         title: {
                             display: true,
-                            text: 'Размер (байт)'
+                            text: 'Размер (бит)'
                         },
                         grid: {
                             color: 'rgba(255, 255, 255, 0.11)'

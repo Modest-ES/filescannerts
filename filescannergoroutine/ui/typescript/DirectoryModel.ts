@@ -2,7 +2,7 @@ import "../css/styles.css";
 import { SortOptions } from "./Main";
 
 // File структура каждого отдельного файла (или папки) в директории
-interface File {
+export interface File {
     FileName: string; // название файла или папки
     FileSize: number; // размер файла или папки
     FileSizeString: string; // размер в строковом формате с указанием единиц измерения
@@ -10,7 +10,7 @@ interface File {
 }
 
 // FileScannerData структура всего списка файлов (или папок) в текущей директории
-interface FileScannerData {
+export interface FileScannerData {
     RootPath: string; // путь текущей директории
     Duration: string; // время подсчета размеров папок и файлов в директории
     FilesList: File[]; // список всех файлов и папок в директории
