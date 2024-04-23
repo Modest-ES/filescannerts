@@ -178,10 +178,9 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	staticFilesFolder := http.Dir("./ui")
+	staticFilesFolder := http.Dir("./public/dist")
 	staticFilesServer := http.FileServer(staticFilesFolder)
 	mux.Handle("/", staticFilesServer)
-
 	mux.HandleFunc("/files", handleJsonDataRequest)
 
 	ctx, cancel := context.WithCancel(context.Background())

@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "node scripts/move-folders-out.js",
-    "build": "webpack --mode production",
-    "postbuild": "node scripts/move-folders-back.js"
+    "build": "webpack --mode production"
   },
   "keywords": [],
   "author": "",

@@ -24,12 +24,12 @@ module.exports = {
   },
   output: {
     filename: 'bundle.[contenthash].js',
-    path: path.resolve(__dirname, 'ui'), 
+    path: path.join(__dirname, 'public', 'dist'), 
     clean: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: path.join('template', 'index.html'),
       filename: 'index.html', 
       inject: 'body', 
     }),
