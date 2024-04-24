@@ -11,5 +11,4 @@ export enum SortOptions {
 
 const model = new DirectoryModel();
 const controller = new DirectoryController(model);
-
 controller.loadDirectoryData();
