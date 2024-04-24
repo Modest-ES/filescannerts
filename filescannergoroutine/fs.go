@@ -164,11 +164,6 @@ func sendPostRequest(jsonData []byte) {
 	}
 }
 
-// handleFrontendDataRequest отображает фронтенд-часть приложения
-// func handleFrontendDataRequest(respWriter http.ResponseWriter, request *http.Request) {
-// 	http.ServeFile(respWriter, request, "./ui/index.html")
-// }
-
 func main() {
 	fmt.Println("Начало работы")
 
