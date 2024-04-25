@@ -10,9 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>File Scanner Статистика</title>
 </head>
-<body>
+<body> 
     <div class="main-shell" id="directory-info">
         <?php
+        include 'dbconnect.php';
         // сохранение параметров URL для возврата на предыдущую страницу
         if (isset($_GET['root'])) {
             $rootval = htmlspecialchars($_GET['root'], ENT_QUOTES, 'UTF-8');
@@ -26,7 +27,8 @@
         }
         echo "<header>";
         echo "<div class='left-side'>";
-        echo "<a href='http://localhost:9015/?root=" . $rootval . "&sort=" . $sortval . "' >";
+        $referringUrl = $_SERVER['HTTP_REFERER'];
+        echo "<a href='" . $referringUrl . "/?root=" . $rootval . "&sort=" . $sortval . "' >";
         echo "<button class='btn-close'>";
         echo "<img src='ui/img/cross.png' alt='Close' title='Закрыть статистику'/>";
         echo "</button>";
@@ -51,7 +53,7 @@
         // список всех точек графика
         $chartDotList = [];
         // подключение к БД
-        $DBconnect = mysqli_connect("localhost","mainUser","passwordmain","mainDB");
+        $DBconnect = $connection;
         // считывание данных из БД
         $result = mysqli_query($DBconnect,"SELECT c_id, c_path, c_size, c_elapsed_time, c_date FROM fileStats");
         while($row = mysqli_fetch_array($result)) {

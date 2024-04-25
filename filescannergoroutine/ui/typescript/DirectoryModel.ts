@@ -1,5 +1,8 @@
 import "../css/styles.css";
+import config from '../../config.json';
 import { SortOptions } from "./Main";
+
+console.log(config);
 
 // File структура каждого отдельного файла (или папки) в директории
 export interface File {

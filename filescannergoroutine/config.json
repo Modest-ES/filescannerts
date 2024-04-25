@@ -1,3 +1,4 @@
 {
-    "port": 9015
+    "filescannerport": 9015,
+    "statsport": 80
 }

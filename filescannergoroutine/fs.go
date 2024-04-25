@@ -18,7 +18,8 @@ import (
 
 // Config содержит конфигурацию запускаемого сервера
 type Config struct {
-	Port int64
+	FileScannerPort int64
+	StatsPort       int64
 }
 
 // readConfigFile возвращает считанную информацию из файла конфигурации
@@ -62,6 +63,12 @@ func writeJsonData(fileScannerData FileScannerData, respWriter http.ResponseWrit
 
 	respWriter.Header().Set("Content-Type", "application/json")
 	respWriter.Write(jsonData)
+}
+
+type StatsData struct {
+	RootPath      string
+	Duration      string
+	DirectorySize int
 }
 
 // handleJsonDataRequest обрабатывает запрос на http-сервер, вызывает чтение данных из указанной директории, сортирует и выводит прочитанную информацию в формате json
@@ -123,13 +130,23 @@ func handleJsonDataRequest(respWriter http.ResponseWriter, request *http.Request
 		ErrorMessage: "",
 	}
 
-	jsonData, err := json.Marshal(fileScannerData)
+	var fileSizeSum int
+
+	for _, file := range fileScannerData.FilesList {
+		fileSizeSum += int(file.FileSize)
+	}
+	statsData := StatsData{
+		RootPath:      fileScannerData.RootPath,
+		Duration:      fileScannerData.Duration,
+		DirectorySize: fileSizeSum,
+	}
+
+	jsonData, err := json.Marshal(statsData)
 	if err != nil {
 		http.Error(respWriter, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	// Send the POST request to localhost:80/receive.php
 	go sendPostRequest(jsonData)
 
 	writeJsonData(fileScannerData, respWriter)
@@ -137,13 +154,11 @@ func handleJsonDataRequest(respWriter http.ResponseWriter, request *http.Request
 
 // sendPostRequest отправляет POST request с данными в Json на сервер Apache с PHP-интерпретатором
 func sendPostRequest(jsonData []byte) {
-	var data FileScannerData
-	err := json.Unmarshal(jsonData, &data)
+	config, err := readConfigFile()
 	if err != nil {
-		fmt.Println("Ошибка анмаршаллинга JSON:", err)
-		return
+		log.Fatal(err)
 	}
-	url := "http://localhost:80/dbadd.php"
+	url := fmt.Sprintf("http://localhost:%d/dbadd.php", config.StatsPort)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
 	if err != nil {
 		log.Printf("Ошибка создания POST запроса: %v", err)
@@ -196,12 +211,12 @@ func main() {
 	}()
 
 	server := &http.Server{
-		Addr:    fmt.Sprintf(":%d", config.Port),
+		Addr:    fmt.Sprintf(":%d", config.FileScannerPort),
 		Handler: mux,
 	}
 
 	go func() {
-		log.Printf("Запуск сервера на порте: %d", config.Port)
+		log.Printf("Запуск сервера на порте: %d", config.FileScannerPort)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Ошибка запуска сервера: %v", err)
 		}

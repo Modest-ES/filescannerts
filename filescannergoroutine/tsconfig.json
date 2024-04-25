@@ -5,8 +5,11 @@
       "strict": true,
       "module": "ES6",
       "noEmit": false,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "allowSyntheticDefaultImports": true,
       "target": "ES6"
     },
-    "include": ["ui/**/*.ts"],
+    "include": ["ui/**/*.ts", "*.json"],
     "exclude": ["node_modules"]
   }
