@@ -2,7 +2,7 @@ import "../css/styles.css";
 
 import DirectoryController from "./DirectoryController";
 import { SortOptions } from "./Main";
-import { FileScannerData, File } from './DirectoryModel';
+import { FileScannerData, File, GetStatsPort } from './DirectoryModel';
 
 // View обрабатывает функционал интерфейса пользователя
 export default class DirectoryView {
@@ -84,7 +84,7 @@ export default class DirectoryView {
         const buttonLinkElement = document.createElement('a');
         buttonLinkElement.classList.add('btn-stats');
         if (data != null) {
-            buttonLinkElement.href = `http://localhost:80/uistats.php?root=${data.RootPath}&sort=${sortParameter}`;
+            buttonLinkElement.href = `http://localhost:${GetStatsPort()}/uistats.php?root=${data.RootPath}&sort=${sortParameter}`;
         }
         const btnStatsElement = document.createElement('button');
         btnStatsElement.classList.add('btn-back');

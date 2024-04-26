@@ -24,7 +24,7 @@ type Config struct {
 
 // readConfigFile возвращает считанную информацию из файла конфигурации
 func readConfigFile() (Config, error) {
-	configFile, err := os.Open("config.json")
+	configFile, err := os.Open("public/config/config.json")
 	if err != nil {
 		return Config{}, err
 	}

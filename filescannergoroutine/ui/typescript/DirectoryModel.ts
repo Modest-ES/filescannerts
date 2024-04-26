@@ -1,8 +1,11 @@
 import "../css/styles.css";
-import config from '../../config.json';
+import config from '../../public/config/config.json';
 import { SortOptions } from "./Main";
 
-console.log(config);
+// GetStatsPort возвращает номер порта для сервера со статистикой
+export function GetStatsPort(): Number {
+    return config.statsport;
+}
 
 // File структура каждого отдельного файла (или папки) в директории
 export interface File {

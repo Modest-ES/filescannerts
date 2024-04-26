@@ -10,6 +10,6 @@
       "allowSyntheticDefaultImports": true,
       "target": "ES6"
     },
-    "include": ["ui/**/*.ts", "*.json"],
+    "include": ["ui/**/*.ts"],
     "exclude": ["node_modules"]
   }
